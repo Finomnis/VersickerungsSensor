@@ -5,8 +5,13 @@
 constexpr unsigned long SENSOR_MEASUREMENT_DELAY_MS = 30;
 
 TOF10120::TOF10120(uint8_t i2c_addr)
-    : i2c_addr{i2c_addr}
+    : i2c_addr{i2c_addr}, value{0, false}
 {
+}
+
+ValueWatcher<uint16_t> TOF10120::create_watcher()
+{
+    return ValueWatcher<uint16_t>(&value);
 }
 
 void TOF10120::update_request()
@@ -19,8 +24,8 @@ void TOF10120::update_request()
         uint8_t error = Wire.endTransmission();
         if (error != 0)
         {
-            // TODO publish error state to data store
-            Serial.println("ERROR: Can't reach sensor");
+            // publish error state to value callback
+            value.update(0, false);
             return;
         }
 
@@ -31,7 +36,7 @@ void TOF10120::update_request()
 
 void TOF10120::update_response()
 {
-    if (requestPending && millis() >= responseExpected)
+    if (requestPending && (int32_t(millis() - responseExpected) >= 0))
     {
         requestPending = false;
 
@@ -39,21 +44,19 @@ void TOF10120::update_response()
         Wire.requestFrom(i2c_addr, 2);
         if (Wire.available() != 2)
         {
-            // TODO publish error state to data store
-            Serial.println("ERROR: Can't reach sensor");
+            // publish error state to value callback
+            value.update(0, false);
             return;
         }
 
-        unsigned char hi = Wire.read();
-        unsigned char lo = Wire.read();
-        unsigned short distance = hi;
+        uint8_t hi = Wire.read();
+        uint8_t lo = Wire.read();
+        uint16_t distance = hi;
         distance = distance << 8;
         distance |= lo;
 
-        // TODO publish sensor value to data store
-        Serial.print("Sensor value: ");
-        Serial.print(distance);
-        Serial.println(" mm");
+        // publish sensor value to callback
+        value.update(distance);
     }
 }
 
