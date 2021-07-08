@@ -6,7 +6,7 @@ DIY Messgerät zur Durchführung von Versickerungs Messung nach DIN 19682-7
 
 Um die Versickerungsfähigkeit eines Bodens zu messen, werden
 [Versickerungsversuche][1] durchgeführt.
-Dabei muss über einen längeren Zeitraum der Wasserstand in einem Rohr gemessen werden.
+Dabei muss über einen längeren Zeitraum der Wasserstand in einem Rohr (Doppelring-Infiltrometer) gemessen werden.
 
 Dieses Projekt hat das Ziel diese Aufgabe zu vereinfachen und zu
 automatisieren.
