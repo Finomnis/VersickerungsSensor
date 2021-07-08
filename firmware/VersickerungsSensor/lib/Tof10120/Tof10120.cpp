@@ -9,9 +9,9 @@ TOF10120::TOF10120(uint8_t i2c_addr)
 {
 }
 
-ValueWatcher<uint16_t> TOF10120::create_watcher()
+const Value<uint16_t> &TOF10120::get_value() const
 {
-    return ValueWatcher<uint16_t>(&value);
+    return value;
 }
 
 void TOF10120::update_request()

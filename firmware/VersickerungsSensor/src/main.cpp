@@ -6,7 +6,7 @@
 #include "peripherals.hpp"
 
 TOF10120 sensor(I2C_DEVICES::SENSOR_TOF10120);
-ValueWatcher<uint16_t> distance_value = sensor.create_watcher();
+ValueWatcher<uint16_t> distance_value{&sensor.get_value()};
 
 void setup()
 {

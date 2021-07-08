@@ -2,14 +2,17 @@
 
 #include <Arduino.h>
 #include <ValueWatcher.hpp>
+#include <NoMoveNoCopy.hpp>
 
 class TOF10120
 {
+    NOMOVE_NOCOPY(TOF10120);
+
 public:
     TOF10120(uint8_t i2c_addr);
     void update();
 
-    ValueWatcher<uint16_t> create_watcher();
+    const Value<uint16_t> &get_value() const;
 
 private:
     void update_request();

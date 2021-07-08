@@ -1,8 +1,12 @@
 #pragma once
 
+#include <NoMoveNoCopy.hpp>
+
 template <typename T>
 class Value
 {
+    NOMOVE_NOCOPY(Value);
+
 public:
     Value(T initial_value, bool initially_valid)
         : value{initial_value}, valid{initially_valid}
