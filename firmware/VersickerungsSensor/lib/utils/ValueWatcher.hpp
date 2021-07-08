@@ -34,6 +34,7 @@ public:
     {
         return value;
     }
+
     bool is_valid() const
     {
         return valid;
@@ -60,10 +61,10 @@ public:
         return iteration_number != parent->get_iteration_number();
     }
 
-    const T &get_value()
+    const T &get()
     {
         iteration_number = parent->get_iteration_number();
-        return parent->get_value();
+        return parent->get();
     }
 
     bool is_valid()

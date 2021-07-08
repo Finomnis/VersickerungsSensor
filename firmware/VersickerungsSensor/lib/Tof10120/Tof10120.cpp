@@ -1,20 +1,21 @@
 #include "Tof10120.hpp"
 
 #include <Wire.h>
+#include <Peripherals.hpp>
 
 constexpr unsigned long SENSOR_MEASUREMENT_DELAY_MS = 30;
 
-TOF10120::TOF10120(uint8_t i2c_addr)
+TOF10120_inst::TOF10120_inst(uint8_t i2c_addr)
     : i2c_addr{i2c_addr}, value{0, false}
 {
 }
 
-const Value<uint16_t> &TOF10120::get_value() const
+const Value<uint16_t> &TOF10120_inst::get_value() const
 {
     return value;
 }
 
-void TOF10120::update_request()
+void TOF10120_inst::update_request()
 {
     if (!requestPending)
     {
@@ -34,7 +35,7 @@ void TOF10120::update_request()
     }
 }
 
-void TOF10120::update_response()
+void TOF10120_inst::update_response()
 {
     if (requestPending && (int32_t(millis() - responseExpected) >= 0))
     {
@@ -60,8 +61,10 @@ void TOF10120::update_response()
     }
 }
 
-void TOF10120::update()
+void TOF10120_inst::update()
 {
     update_response();
     update_request();
 }
+
+TOF10120_inst TOF10120(I2C_DEVICES::SENSOR_TOF10120);

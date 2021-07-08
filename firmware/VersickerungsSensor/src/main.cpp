@@ -7,9 +7,6 @@
 
 #include "peripherals.hpp"
 
-TOF10120 sensor(I2C_DEVICES::SENSOR_TOF10120);
-ValueWatcher<uint16_t> distance_value{&sensor.get_value()};
-
 void setup()
 {
     Wire.begin();
@@ -26,7 +23,9 @@ void setup()
 
 void loop()
 {
-    sensor.update();
+    // Update distance sensor
+    TOF10120.update();
 
+    // Update logic and state machines
     Logic::update();
 }
