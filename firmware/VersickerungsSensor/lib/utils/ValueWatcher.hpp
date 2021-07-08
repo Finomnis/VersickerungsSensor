@@ -8,7 +8,7 @@ class Value
     NOMOVE_NOCOPY(Value);
 
 public:
-    Value(T initial_value, bool initially_valid)
+    Value(T initial_value, bool initially_valid = true)
         : value{initial_value}, valid{initially_valid}
     {
     }
@@ -30,7 +30,7 @@ public:
         return iteration_number;
     }
 
-    const T &get_value() const
+    const T &get() const
     {
         return value;
     }
