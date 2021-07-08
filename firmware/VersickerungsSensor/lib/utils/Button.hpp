@@ -7,14 +7,14 @@ template <uint32_t PIN>
 class Button
 {
 private:
-    static constexpr uint32_t DEBOUNCE_TIME_MS = 50;
+    static constexpr uint32_t DEBOUNCE_TIME_MS = 100;
 
 public:
     void init()
     {
         pinMode(PIN, INPUT_PULLUP);
         attachInterrupt(digitalPinToInterrupt(PIN),
-                        Button<PIN>::on_press, FALLING);
+                        Button<PIN>::on_button_change, CHANGE);
     }
 
     bool was_triggered()
@@ -36,17 +36,71 @@ public:
 
 private:
     static void
-    on_press()
+    on_button_change()
     {
-        uint32_t now = millis();
-        if (event_is_over(get().debounce_end, now))
+        if (digitalRead(PIN) == LOW)
         {
-            get().pressed = true;
-            get().debounce_end = now + DEBOUNCE_TIME_MS;
+            get().on_press();
+        }
+        else
+        {
+            get().on_release();
         }
     }
 
+    void on_press()
+    {
+        uint32_t now = millis();
+
+        // Update debounce end
+        uint32_t previous_debounce_end = debounce_end;
+        debounce_end = now + DEBOUNCE_TIME_MS;
+
+        // Update button pressed state
+        bool button_was_pressed = button_state_pressed;
+        button_state_pressed = true;
+
+        // If already pressed, do nothing
+        if (button_was_pressed)
+        {
+            return;
+        }
+
+        // Update button duration timer
+        last_button_change = now;
+
+        // If we are still in the debounce period, do nothing
+        if (!event_is_over(previous_debounce_end, now))
+        {
+            return;
+        }
+
+        // Register 'press' event
+        pressed = true;
+    }
+
+    void
+    on_release()
+    {
+        uint32_t now = millis();
+        debounce_end = now + DEBOUNCE_TIME_MS;
+
+        // Update button press state
+        bool button_was_pressed = button_state_pressed;
+        button_state_pressed = false;
+
+        if (!button_was_pressed)
+        {
+            return;
+        }
+
+        // Update button duration timer
+        last_button_change = now;
+    }
+
 private:
-    bool pressed;
-    uint32_t debounce_end;
+    bool pressed = false;
+    bool button_state_pressed = false;
+    uint32_t last_button_change = 0;
+    uint32_t debounce_end = 0;
 };
