@@ -4,6 +4,7 @@
 
 #include <Tof10120.hpp>
 #include <Logic.hpp>
+#include <Display_128x32.hpp>
 
 #include "peripherals.hpp"
 
@@ -16,6 +17,9 @@ void setup()
         delay(100);
 
     Serial.println("\nVersickerungs Sensor");
+
+    // Initialize display
+    Display_128x32.init();
 
     // Initialize logic
     Logic::init();
