@@ -58,7 +58,9 @@ public:
 
     bool new_value_available()
     {
-        return iteration_number != parent->get_iteration_number();
+        bool result = iteration_number != parent->get_iteration_number();
+        iteration_number = parent->get_iteration_number();
+        return result;
     }
 
     const T &get()
