@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 #include <Display_128x32.hpp>
+#include <Recording.hpp>
 
 #include "Saved.hpp"
 
@@ -13,6 +14,13 @@ namespace SystemStateMachine::States
 
         reset_blink_state();
         update_display();
+
+        ::Recording.start();
+    }
+
+    void Recording::exit()
+    {
+        ::Recording.finish();
     }
 
     void Recording::react(PressedButtonA const &e)
@@ -31,6 +39,8 @@ namespace SystemStateMachine::States
         {
             update_display();
         }
+
+        ::Recording.update();
     }
 
     void Recording::update_display()

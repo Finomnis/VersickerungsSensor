@@ -13,7 +13,10 @@ namespace SystemStateMachine::States
           protected Mixins::BlinkStateMixin
     {
         void entry() override;
+        void exit() override;
+
         void react(PressedButtonA const &e) override;
+
         void update_state() override;
         void update_display();
     };

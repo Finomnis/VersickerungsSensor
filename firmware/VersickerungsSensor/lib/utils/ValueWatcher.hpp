@@ -60,20 +60,25 @@ public:
     bool new_value_available()
     {
         bool result = iteration_number != parent->get_iteration_number();
-        iteration_number = parent->get_iteration_number();
+        clear();
         return result;
     }
 
     const T &get()
     {
-        iteration_number = parent->get_iteration_number();
+        clear();
         return parent->get();
     }
 
     bool is_valid()
     {
-        iteration_number = parent->get_iteration_number();
+        clear();
         return parent->is_valid();
+    }
+
+    void clear()
+    {
+        iteration_number = parent->get_iteration_number();
     }
 
 private:
