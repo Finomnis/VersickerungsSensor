@@ -38,11 +38,22 @@ namespace SystemStateMachine::States
 
     void Idle::update_display()
     {
-        Display_128x32.show_mainpage(
-            std::lround(filtered_distance().get()),
-            false,
-            true, //TODO
-            true, //TODO
-            false);
+        if (filtered_distance().is_valid())
+        {
+            Display_128x32.show_mainpage(
+                std::lround(filtered_distance().get()),
+                false,
+                true, //TODO
+                true, //TODO
+                false);
+        }
+        else
+        {
+            Display_128x32.show_mainpage(
+                false,
+                true, //TODO
+                true, //TODO
+                false);
+        }
     }
 };

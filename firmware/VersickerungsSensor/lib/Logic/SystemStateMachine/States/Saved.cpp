@@ -33,8 +33,8 @@ namespace SystemStateMachine::States
 
     void Saved::update_display()
     {
-        Display_128x32.show_mainpage(
-            0,
+        Display_128x32.show_mainpage_text(
+            "Saved",
             false,
             true, //TODO
             true, //TODO

@@ -35,11 +35,22 @@ namespace SystemStateMachine::States
 
     void Recording::update_display()
     {
-        Display_128x32.show_mainpage(
-            std::lround(filtered_distance().get()),
-            true,
-            true, //TODO
-            true, //TODO
-            blink_state().get());
+        if (filtered_distance().is_valid())
+        {
+            Display_128x32.show_mainpage(
+                std::lround(filtered_distance().get()),
+                true,
+                true, //TODO
+                true, //TODO
+                blink_state().get());
+        }
+        else
+        {
+            Display_128x32.show_mainpage(
+                true,
+                true, //TODO
+                true, //TODO
+                blink_state().get());
+        }
     }
 }

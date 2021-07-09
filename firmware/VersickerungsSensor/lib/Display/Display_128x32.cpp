@@ -19,6 +19,16 @@ void Display_128x32_t::init()
 }
 
 void Display_128x32_t::show_mainpage(
+    bool recording,
+    bool bluetooth,
+    bool usb,
+    bool blink)
+{
+    ::show_mainpage(display, recording, bluetooth,
+                    usb, blink);
+}
+
+void Display_128x32_t::show_mainpage(
     uint16_t distance_value,
     bool recording,
     bool bluetooth,
@@ -27,6 +37,17 @@ void Display_128x32_t::show_mainpage(
 {
     ::show_mainpage(display, distance_value, recording, bluetooth,
                     usb, blink);
+}
+
+void Display_128x32_t::show_mainpage_text(
+    const char *text,
+    bool recording,
+    bool bluetooth,
+    bool usb,
+    bool blink)
+{
+    ::show_mainpage_text(display, text, recording, bluetooth,
+                         usb, blink);
 }
 
 Display_128x32_t Display_128x32;

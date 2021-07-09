@@ -16,6 +16,15 @@ public:
                        bool bluetooth,
                        bool usb,
                        bool blink);
+    void show_mainpage(bool recording,
+                       bool bluetooth,
+                       bool usb,
+                       bool blink);
+    void show_mainpage_text(const char *text,
+                            bool recording,
+                            bool bluetooth,
+                            bool usb,
+                            bool blink);
 
 private:
     Adafruit_SSD1306 display;
