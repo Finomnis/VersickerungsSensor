@@ -11,7 +11,7 @@ namespace SystemStateMachine::States
     void Saved::entry()
     {
         Serial.println("State: Saved");
-        exitTime = millis() + 1000;
+        exitTime = millis() + 2000;
 
         update_display();
     }
