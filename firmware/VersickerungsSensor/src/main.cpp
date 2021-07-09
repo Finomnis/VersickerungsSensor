@@ -38,13 +38,4 @@ void loop()
 
     // Update logic and state machines
     Logic::update();
-
-    if (distance_value.new_value_available())
-    {
-        if (distance_value.is_valid())
-        {
-            Display_128x32.show_mainpage(std::lround(distance_value.get()),
-                                         false, true, true, true);
-        }
-    }
 }

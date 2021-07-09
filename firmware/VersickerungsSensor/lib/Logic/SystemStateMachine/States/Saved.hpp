@@ -11,6 +11,7 @@ namespace SystemStateMachine::States
     {
         void entry() override;
         void update_state() override;
+        void update_display();
 
     private:
         uint32_t exitTime;
