@@ -8,13 +8,17 @@
 
 #include "peripherals.hpp"
 
+ValueWatcher<uint16_t> distance_value{&TOF10120.get_value()};
+
 void setup()
 {
     Wire.begin();
 
     Serial.begin(9600);
-    while (!Serial)
-        delay(100);
+
+    /* Comment in following two lines to pause until Serial is attached */
+    // while (!Serial)
+    //     delay(100);
 
     Serial.println("\nVersickerungs Sensor");
 
@@ -32,4 +36,13 @@ void loop()
 
     // Update logic and state machines
     Logic::update();
+
+    if (distance_value.new_value_available())
+    {
+        if (distance_value.is_valid())
+        {
+            Display_128x32.show_mainpage(distance_value.get(),
+                                         false, true, true, true);
+        }
+    }
 }

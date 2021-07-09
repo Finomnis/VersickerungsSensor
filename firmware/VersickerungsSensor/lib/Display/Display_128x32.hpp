@@ -11,6 +11,12 @@ public:
     Display_128x32_t();
     void init();
 
+    void show_mainpage(uint16_t distance_value,
+                       bool recording,
+                       bool bluetooth,
+                       bool usb,
+                       bool blink);
+
 private:
     Adafruit_SSD1306 display;
 };
