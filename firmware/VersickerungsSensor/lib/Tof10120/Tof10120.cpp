@@ -2,11 +2,14 @@
 
 #include <Wire.h>
 #include <Peripherals.hpp>
+#include <TimeHelpers.hpp>
 
-constexpr unsigned long SENSOR_MEASUREMENT_DELAY_MS = 30;
+constexpr uint32_t SENSOR_MEASUREMENT_DELAY_MS = 30;
+constexpr uint32_t AVERAGING_FILTER_SIZE = 33;
 
 TOF10120_t::TOF10120_t(uint8_t i2c_addr)
-    : i2c_addr{i2c_addr}, value{0, false}
+    : i2c_addr{i2c_addr}, value{0, false},
+      averaging_filter{AVERAGING_FILTER_SIZE}
 {
 }
 
@@ -15,9 +18,14 @@ const Value<uint16_t> &TOF10120_t::get_value() const
     return value;
 }
 
+const Value<float> &TOF10120_t::get_display_filtered_value() const
+{
+    return averaging_filter.get_filtered_value();
+}
+
 void TOF10120_t::update_request()
 {
-    if (!requestPending)
+    if (!request_pending)
     {
         // Request sensor to measure distance
         Wire.beginTransmission(i2c_addr);
@@ -27,19 +35,20 @@ void TOF10120_t::update_request()
         {
             // publish error state to value callback
             value.update(0, false);
+            averaging_filter.set_invalid();
             return;
         }
 
-        requestPending = true;
-        responseExpected = millis() + SENSOR_MEASUREMENT_DELAY_MS;
+        request_pending = true;
+        response_expected = millis() + SENSOR_MEASUREMENT_DELAY_MS;
     }
 }
 
 void TOF10120_t::update_response()
 {
-    if (requestPending && (int32_t(millis() - responseExpected) >= 0))
+    if (request_pending && event_is_over(response_expected))
     {
-        requestPending = false;
+        request_pending = false;
 
         // Read response
         Wire.requestFrom(i2c_addr, 2);
@@ -47,6 +56,7 @@ void TOF10120_t::update_response()
         {
             // publish error state to value callback
             value.update(0, false);
+            averaging_filter.set_invalid();
             return;
         }
 
@@ -58,6 +68,7 @@ void TOF10120_t::update_response()
 
         // publish sensor value to callback
         value.update(distance);
+        averaging_filter.add_sample(distance);
     }
 }
 

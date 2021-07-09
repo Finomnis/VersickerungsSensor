@@ -1,6 +1,7 @@
 #pragma once
 
 #include <NoMoveNoCopy.hpp>
+#include <Arduino.h>
 
 template <typename T>
 class Value

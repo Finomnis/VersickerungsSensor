@@ -8,7 +8,9 @@
 
 #include "peripherals.hpp"
 
-ValueWatcher<uint16_t> distance_value{&TOF10120.get_value()};
+#include <cmath>
+
+ValueWatcher<float> distance_value{&TOF10120.get_display_filtered_value()};
 
 void setup()
 {
@@ -41,7 +43,7 @@ void loop()
     {
         if (distance_value.is_valid())
         {
-            Display_128x32.show_mainpage(distance_value.get(),
+            Display_128x32.show_mainpage(std::lround(distance_value.get()),
                                          false, true, true, true);
         }
     }
