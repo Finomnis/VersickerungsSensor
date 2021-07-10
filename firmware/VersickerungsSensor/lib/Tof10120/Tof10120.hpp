@@ -16,14 +16,11 @@ public:
     const Value<float> &get_display_filtered_value() const;
 
 private:
-    void update_request();
-    void update_response();
+    void read_sensor_value();
 
 private:
     uint8_t i2c_addr;
     Value<uint16_t> value;
-    bool request_pending = false;
-    uint32_t response_expected = 0;
     AveragingFilter averaging_filter;
 };
 
