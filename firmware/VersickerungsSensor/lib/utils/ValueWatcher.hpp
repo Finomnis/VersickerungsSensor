@@ -4,9 +4,8 @@
 #include <Arduino.h>
 
 template <typename T>
-class Value
+class Value : NoMoveNoCopy
 {
-    NOMOVE_NOCOPY(Value);
 
 public:
     Value(T initial_value, bool initially_valid = true)

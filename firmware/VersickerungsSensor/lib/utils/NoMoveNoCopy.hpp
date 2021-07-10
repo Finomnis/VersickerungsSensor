@@ -1,9 +1,12 @@
 #pragma once
 
-#define NOMOVE_NOCOPY(name)                 \
-public:                                     \
-    name(const name &) = delete;            \
-    name(name &&) = delete;                 \
-    name &operator=(const name &) = delete; \
-    name &operator=(name &&) = delete;      \
-    virtual ~name() = default
+class NoMoveNoCopy
+{
+public:
+    NoMoveNoCopy() = default;
+    NoMoveNoCopy(const NoMoveNoCopy &) = delete;
+    NoMoveNoCopy(NoMoveNoCopy &&) = delete;
+    NoMoveNoCopy &operator=(const NoMoveNoCopy &) = delete;
+    NoMoveNoCopy &operator=(NoMoveNoCopy &&) = delete;
+    virtual ~NoMoveNoCopy() = default;
+};

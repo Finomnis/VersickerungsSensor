@@ -6,10 +6,8 @@
 
 #include "AveragingFilter.hpp"
 
-class TOF10120_t
+class TOF10120_t : NoMoveNoCopy
 {
-    NOMOVE_NOCOPY(TOF10120_t);
-
 public:
     TOF10120_t(uint8_t i2c_addr);
     void update();
