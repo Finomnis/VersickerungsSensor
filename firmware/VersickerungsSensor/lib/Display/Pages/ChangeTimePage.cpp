@@ -22,7 +22,7 @@ void show_changetimepage(Adafruit_SSD1306 &display,
 {
     display.clearDisplay();
 
-    draw_header(display, "Adjust date/time", true, bluetooth, usb, false);
+    draw_header(display, "Zeit/Datum setzen", true, bluetooth, usb, false);
 
     memset(part1, 0, sizeof(part1));
     memset(part2, 0, sizeof(part2));

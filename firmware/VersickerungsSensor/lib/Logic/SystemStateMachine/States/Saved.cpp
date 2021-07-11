@@ -37,10 +37,11 @@ namespace SystemStateMachine::States
     {
         Display_128x32.show_mainpage_text(
             formatted_datetime().get().str,
-            "Saved",
+            "Gespeichert",
             false,
             true, //TODO
             true, //TODO
-            false);
+            false,
+            true);
     }
 };
