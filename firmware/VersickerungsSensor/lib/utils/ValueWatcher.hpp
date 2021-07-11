@@ -65,13 +65,11 @@ public:
 
     const T &get()
     {
-        clear();
         return parent->get();
     }
 
     bool is_valid()
     {
-        clear();
         return parent->is_valid();
     }
 
