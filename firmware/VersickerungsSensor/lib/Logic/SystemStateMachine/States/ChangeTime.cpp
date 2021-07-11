@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 #include <Display_128x32.hpp>
+#include <TimeHelpers.hpp>
 
 #include "ChangeTimeStateMachine.hpp"
 #include "Idle.hpp"
@@ -18,6 +19,13 @@ namespace SystemStateMachine::States
 
         reset_blink_state();
         update_display();
+
+        reset_idle_timeout();
+    }
+
+    void ChangeTime::reset_idle_timeout()
+    {
+        idle_timeout = millis() + IDLE_TIMEOUT_MS;
     }
 
     void ChangeTime::react(PressedButtonA const &e)
@@ -25,6 +33,7 @@ namespace SystemStateMachine::States
         ChangeTimeState::dispatch(ChangeTimeStateMachine::IncreaseValue{});
         reset_blink_state();
         update_display();
+        reset_idle_timeout();
     };
 
     void ChangeTime::react(PressedButtonC const &e)
@@ -34,12 +43,12 @@ namespace SystemStateMachine::States
         if (ChangeTimeState::is_in_state<ChangeTimeStateMachine::States::Finished>())
         {
             transit<Idle>();
+            return;
         }
-        else
-        {
-            reset_blink_state();
-            update_display();
-        }
+
+        reset_blink_state();
+        update_display();
+        reset_idle_timeout();
     };
 
     void ChangeTime::update_state()
@@ -53,6 +62,11 @@ namespace SystemStateMachine::States
         if (changed)
         {
             update_display();
+        }
+
+        if (event_is_over(idle_timeout))
+        {
+            transit<Idle>();
         }
     }
 
