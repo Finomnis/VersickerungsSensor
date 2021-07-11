@@ -18,6 +18,7 @@ namespace SystemStateMachine::States
         void entry() override;
 
         void react(PressedButtonA const &e) override;
+        void react(LongPressedButtonA const &e) override;
         void react(PressedButtonC const &e) override;
 
         void update_state() override;

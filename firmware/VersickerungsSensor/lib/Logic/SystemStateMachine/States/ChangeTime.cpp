@@ -28,6 +28,14 @@ namespace SystemStateMachine::States
         idle_timeout = millis() + IDLE_TIMEOUT_MS;
     }
 
+    void ChangeTime::react(LongPressedButtonA const &e)
+    {
+        ChangeTimeState::dispatch(ChangeTimeStateMachine::IncreaseValue{});
+        reset_blink_state();
+        update_display();
+        reset_idle_timeout();
+    }
+
     void ChangeTime::react(PressedButtonA const &e)
     {
         ChangeTimeState::dispatch(ChangeTimeStateMachine::IncreaseValue{});
