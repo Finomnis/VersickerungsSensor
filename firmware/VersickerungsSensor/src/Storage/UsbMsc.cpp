@@ -49,12 +49,14 @@ void UsbMsc_t::update()
 
 void UsbMsc_t::enable()
 {
+    Flash.sync();
     usb_msc.setUnitReady(true);
 }
 
 void UsbMsc_t::disable()
 {
     usb_msc.setUnitReady(false);
+    Flash.sync();
 }
 
 UsbMsc_t UsbMsc{};
