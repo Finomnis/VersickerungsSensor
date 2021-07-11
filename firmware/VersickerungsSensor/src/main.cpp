@@ -5,6 +5,8 @@
 #include "RTC/RTC.hpp"
 #include "Recording/Recording.hpp"
 #include "Peripherals/Peripherals.hpp"
+#include "Storage/Flash.hpp"
+#include "Storage/UsbMsc.hpp"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -32,6 +34,12 @@ void setup()
     // Initialize clock
     RTC.init();
 
+    // Initialize flash
+    Flash.init();
+
+    // Initialize USB MSC
+    UsbMsc.init();
+
     // Initialize recording
     Recording.init();
 
@@ -46,6 +54,9 @@ void loop()
 
     // Update the clock
     RTC.update();
+
+    // Update USB state
+    UsbMsc.update();
 
     // Update logic and state machines
     Logic::update();
