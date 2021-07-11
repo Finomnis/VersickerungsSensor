@@ -16,6 +16,9 @@ Button<BUTTONS::C> &ButtonC = Button<BUTTONS::C>::get();
 PressedButtonA buttonEventA{};
 PressedButtonB buttonEventB{};
 PressedButtonC buttonEventC{};
+LongPressedButtonA buttonEventLongA{};
+LongPressedButtonB buttonEventLongB{};
+LongPressedButtonC buttonEventLongC{};
 
 void Logic::init()
 {
@@ -43,5 +46,20 @@ void Logic::update()
     if (ButtonC.was_triggered())
     {
         SystemState::dispatch(buttonEventC);
+    }
+
+    if (ButtonA.was_longpressed())
+    {
+        SystemState::dispatch(buttonEventLongA);
+    }
+
+    if (ButtonB.was_longpressed())
+    {
+        SystemState::dispatch(buttonEventLongB);
+    }
+
+    if (ButtonC.was_longpressed())
+    {
+        SystemState::dispatch(buttonEventLongC);
     }
 }

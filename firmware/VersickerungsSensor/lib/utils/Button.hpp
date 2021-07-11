@@ -8,6 +8,8 @@ class Button
 {
 private:
     static constexpr uint32_t DEBOUNCE_TIME_MS = 100;
+    static constexpr uint32_t LONG_PRESS_DELAY_MS = 500;
+    static constexpr uint32_t LONG_PRESS_RATE_MS = 200;
 
 public:
     void init()
@@ -23,6 +25,26 @@ public:
         noInterrupts();
         bool result = pressed;
         pressed = false;
+        interrupts();
+
+        return result;
+    }
+
+    bool was_longpressed()
+    {
+        bool result = false;
+
+        noInterrupts();
+        if (button_state_pressed)
+        {
+            uint32_t now = millis();
+            uint32_t duration = now - last_button_change;
+            if (duration >= LONG_PRESS_DELAY_MS + num_longpress_fired * LONG_PRESS_RATE_MS)
+            {
+                num_longpress_fired++;
+                result = true;
+            }
+        }
         interrupts();
 
         return result;
@@ -68,6 +90,7 @@ private:
 
         // Update button duration timer
         last_button_change = now;
+        num_longpress_fired = 0;
 
         // If we are still in the debounce period, do nothing
         if (!event_is_over(previous_debounce_end, now))
@@ -103,4 +126,5 @@ private:
     bool button_state_pressed = false;
     uint32_t last_button_change = 0;
     uint32_t debounce_end = 0;
+    uint32_t num_longpress_fired = 0;
 };
