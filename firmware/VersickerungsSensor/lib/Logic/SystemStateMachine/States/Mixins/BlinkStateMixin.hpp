@@ -9,7 +9,7 @@ namespace SystemStateMachine::States::Mixins
     protected:
         BlinkStateMixin();
         ValueWatcher<bool> &blink_state();
-        void reset_blink_state();
+        void reset_blink_state(bool target_state = true);
 
     private:
         static void update_blink_state();

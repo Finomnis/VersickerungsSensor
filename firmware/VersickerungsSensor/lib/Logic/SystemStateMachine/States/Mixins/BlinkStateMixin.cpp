@@ -14,9 +14,16 @@ namespace SystemStateMachine::States::Mixins
         return blink_state_valuewatcher;
     }
 
-    void BlinkStateMixin::reset_blink_state()
+    void BlinkStateMixin::reset_blink_state(bool target_state)
     {
-        blink_state_start = millis();
+        if (target_state)
+        {
+            blink_state_start = millis();
+        }
+        else
+        {
+            blink_state_start = millis() - blink_rate_ms / 2;
+        }
         update_blink_state();
     }
 
