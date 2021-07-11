@@ -32,56 +32,21 @@ void show_changetimepage(Adafruit_SSD1306 &display,
     strncpy(part2, time + highlight_start, highlight_end - highlight_start);
     strncpy(part3, time + highlight_end, sizeof(part3));
 
-    uint16_t part1Width;
-    uint16_t part2Width;
-    uint16_t part3Width;
-
     display.setFont(&FreeSansOblique9pt7b);
-    TextHelper::getTextDimensions(display, part1, &part1Width);
-    display.setFont(&FreeSansOblique12pt7b);
-    TextHelper::getTextDimensions(display, part2, &part2Width);
-    display.setFont(&FreeSansOblique9pt7b);
-    TextHelper::getTextDimensions(display, part3, &part3Width);
+    TextHelper::setCursor(display, time,
+                          display.width() / 2,
+                          display.height() - 1,
+                          TextHelper::H_CENTER,
+                          TextHelper::V_BOTTOM);
 
-    // Add spaces
-    if ((part1Width > 0 && part2Width > 0) ||
-        (part1Width > 0 && part3Width > 0))
+    display.print(part1);
+    if (!blink)
     {
-        part1Width += 3;
+        display.setTextColor(SSD1306_BLACK);
     }
-    if (part2Width > 0 && part3Width > 0)
-    {
-        part2Width += 1;
-    }
-
-    uint16_t totalWidth = part1Width + part2Width + part3Width;
-
-    int16_t totalLeft = TextHelper::getLeft(display.width() / 2, totalWidth,
-                                            TextHelper::H_CENTER);
-
-    display.setFont(&FreeSansOblique9pt7b);
-    TextHelper::drawText(display, part1,
-                         totalLeft,
-                         display.height() - 1,
-                         TextHelper::H_LEFT,
-                         TextHelper::V_BOTTOM);
-
-    if (blink)
-    {
-        display.setFont(&FreeSansOblique12pt7b);
-        TextHelper::drawText(display, part2,
-                             totalLeft + part1Width,
-                             display.height() - 1,
-                             TextHelper::H_LEFT,
-                             TextHelper::V_BOTTOM);
-    }
-
-    display.setFont(&FreeSansOblique9pt7b);
-    TextHelper::drawText(display, part3,
-                         totalLeft + part1Width + part2Width,
-                         display.height() - 1,
-                         TextHelper::H_LEFT,
-                         TextHelper::V_BOTTOM);
+    display.print(part2);
+    display.setTextColor(SSD1306_WHITE);
+    display.print(part3);
 
     display.display();
 }

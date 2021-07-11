@@ -46,7 +46,7 @@ namespace SystemStateMachine::States
             return;
         }
 
-        reset_blink_state();
+        reset_blink_state(false);
         update_display();
         reset_idle_timeout();
     };
