@@ -24,6 +24,12 @@ namespace TextHelper
                            uint16_t *width,
                            uint16_t *height = nullptr);
 
+    void setCursor(Adafruit_SSD1306 &display,
+                   const char *text,
+                   int pos_x, int pos_y,
+                   HorizontalAlign align_h, VerticalAlign align_v,
+                   int *rendered_width = nullptr,
+                   int *rendered_height = nullptr);
     void drawText(Adafruit_SSD1306 &display,
                   const char *text,
                   int pos_x, int pos_y,

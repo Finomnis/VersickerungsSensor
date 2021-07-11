@@ -50,11 +50,11 @@ namespace TextHelper
         }
     }
 
-    void drawText(Adafruit_SSD1306 &display,
-                  const char *text,
-                  int pos_x, int pos_y,
-                  HorizontalAlign align_h, VerticalAlign align_v,
-                  int *rendered_width, int *rendered_height)
+    void setCursor(Adafruit_SSD1306 &display,
+                   const char *text,
+                   int pos_x, int pos_y,
+                   HorizontalAlign align_h, VerticalAlign align_v,
+                   int *rendered_width, int *rendered_height)
     {
         int16_t start_x, start_y;
         uint16_t width, height;
@@ -67,11 +67,21 @@ namespace TextHelper
         int cursor_y = absolute_top - start_y;
 
         display.setCursor(cursor_x, cursor_y);
-        display.print(text);
 
         if (rendered_height != nullptr)
             *rendered_height = height;
         if (rendered_width != nullptr)
             *rendered_width = width;
+    }
+
+    void drawText(Adafruit_SSD1306 &display,
+                  const char *text,
+                  int pos_x, int pos_y,
+                  HorizontalAlign align_h, VerticalAlign align_v,
+                  int *rendered_width, int *rendered_height)
+    {
+        setCursor(display, text, pos_x, pos_y, align_h, align_v,
+                  rendered_width, rendered_height);
+        display.print(text);
     }
 }
