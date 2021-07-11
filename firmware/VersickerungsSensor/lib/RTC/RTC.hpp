@@ -11,6 +11,12 @@ public:
     void init();
     void update();
 
+    void adjustMinute(int8_t delta = 1);
+    void adjustHour(int8_t delta = 1);
+    void adjustDay(int8_t delta = 1);
+    void adjustMonth(int8_t delta = 1);
+    void adjustYear(int8_t delta = 1);
+
     inline Value<DateTime> const &get_time_value() const
     {
         return time;

@@ -1,5 +1,7 @@
 #include "ChangeTimeStateMachine.hpp"
 
+#include <RTC.hpp>
+
 namespace SystemStateMachine::States::ChangeTimeStateMachine
 {
     int32_t ChangeTimeState::highlight_start()
@@ -16,27 +18,27 @@ namespace SystemStateMachine::States::ChangeTimeStateMachine::States
 {
     void EditMinute::react(IncreaseValue const &e)
     {
-        Serial.println("Add minute!");
+        RTC.adjustMinute();
     }
 
     void EditHour::react(IncreaseValue const &e)
     {
-        Serial.println("Add hour!");
+        RTC.adjustHour();
     }
 
     void EditYear::react(IncreaseValue const &e)
     {
-        Serial.println("Add year!");
+        RTC.adjustYear();
     }
 
     void EditMonth::react(IncreaseValue const &e)
     {
-        Serial.println("Add month!");
+        RTC.adjustMonth();
     }
 
     void EditDay::react(IncreaseValue const &e)
     {
-        Serial.println("Add day!");
+        RTC.adjustDay();
     }
 }
 
