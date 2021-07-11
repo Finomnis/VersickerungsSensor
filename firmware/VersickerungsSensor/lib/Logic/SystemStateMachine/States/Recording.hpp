@@ -4,13 +4,15 @@
 
 #include "Mixins/FilteredDistanceMixin.hpp"
 #include "Mixins/BlinkStateMixin.hpp"
+#include "Mixins/DateTimeMixin.hpp"
 
 namespace SystemStateMachine::States
 {
     class Recording
         : public SystemState,
           protected Mixins::FilteredDistanceMixin,
-          protected Mixins::BlinkStateMixin
+          protected Mixins::BlinkStateMixin,
+          protected Mixins::DateTimeMixin
     {
         void entry() override;
         void exit() override;

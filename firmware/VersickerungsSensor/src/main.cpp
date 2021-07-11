@@ -5,6 +5,7 @@
 #include <Tof10120.hpp>
 #include <Logic.hpp>
 #include <Display_128x32.hpp>
+#include <RTC.hpp>
 
 #include "peripherals.hpp"
 
@@ -27,6 +28,9 @@ void setup()
     // Initialize display
     Display_128x32.init();
 
+    // Initialize clock
+    RTC.init();
+
     // Initialize logic
     Logic::init();
 }
@@ -35,6 +39,9 @@ void loop()
 {
     // Update distance sensor
     TOF10120.update();
+
+    // Update the clock
+    RTC.update();
 
     // Update logic and state machines
     Logic::update();

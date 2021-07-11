@@ -11,16 +11,19 @@ public:
     Display_128x32_t();
     void init();
 
-    void show_mainpage(uint16_t distance_value,
+    void show_mainpage(const char *time,
+                       uint16_t distance_value,
                        bool recording,
                        bool bluetooth,
                        bool usb,
                        bool blink);
-    void show_mainpage(bool recording,
+    void show_mainpage(const char *time,
+                       bool recording,
                        bool bluetooth,
                        bool usb,
                        bool blink);
-    void show_mainpage_text(const char *text,
+    void show_mainpage_text(const char *time,
+                            const char *text,
                             bool recording,
                             bool bluetooth,
                             bool usb,

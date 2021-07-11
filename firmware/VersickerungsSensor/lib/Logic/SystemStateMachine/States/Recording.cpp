@@ -48,6 +48,7 @@ namespace SystemStateMachine::States
         if (filtered_distance().is_valid())
         {
             Display_128x32.show_mainpage(
+                formatted_time().get().str,
                 std::lround(filtered_distance().get()),
                 true,
                 true, //TODO
@@ -57,6 +58,7 @@ namespace SystemStateMachine::States
         else
         {
             Display_128x32.show_mainpage(
+                formatted_time().get().str,
                 true,
                 true, //TODO
                 true, //TODO

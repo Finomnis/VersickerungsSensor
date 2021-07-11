@@ -3,7 +3,7 @@
 #include <RTClib.h>
 #include <NoMoveNoCopy.hpp>
 #include <ValueWatcher.hpp>
-#include "FormattingFilter.hpp"
+#include "RTCFormattingFilter.hpp"
 
 class RTC_t : NoMoveNoCopy
 {

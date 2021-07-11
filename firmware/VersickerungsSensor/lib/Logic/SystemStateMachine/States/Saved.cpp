@@ -34,6 +34,7 @@ namespace SystemStateMachine::States
     void Saved::update_display()
     {
         Display_128x32.show_mainpage_text(
+            formatted_time().get().str,
             "Saved",
             false,
             true, //TODO

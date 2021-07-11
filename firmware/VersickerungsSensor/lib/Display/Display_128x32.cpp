@@ -19,34 +19,37 @@ void Display_128x32_t::init()
 }
 
 void Display_128x32_t::show_mainpage(
+    const char *time,
     bool recording,
     bool bluetooth,
     bool usb,
     bool blink)
 {
-    ::show_mainpage(display, recording, bluetooth,
+    ::show_mainpage(display, time, recording, bluetooth,
                     usb, blink);
 }
 
 void Display_128x32_t::show_mainpage(
+    const char *time,
     uint16_t distance_value,
     bool recording,
     bool bluetooth,
     bool usb,
     bool blink)
 {
-    ::show_mainpage(display, distance_value, recording, bluetooth,
+    ::show_mainpage(display, time, distance_value, recording, bluetooth,
                     usb, blink);
 }
 
 void Display_128x32_t::show_mainpage_text(
+    const char *time,
     const char *text,
     bool recording,
     bool bluetooth,
     bool usb,
     bool blink)
 {
-    ::show_mainpage_text(display, text, recording, bluetooth,
+    ::show_mainpage_text(display, time, text, recording, bluetooth,
                          usb, blink);
 }
 

@@ -5,13 +5,14 @@
 #include "Icons.hpp"
 
 inline void draw_header(Adafruit_SSD1306 &display,
+                        const char *time,
                         bool recording,
                         bool bluetooth,
                         bool usb,
                         bool blink)
 {
     display.setFont(nullptr);
-    TextHelper::drawText(display, "27.12.21 19:30",
+    TextHelper::drawText(display, time,
                          0, 0,
                          TextHelper::H_LEFT,
                          TextHelper::V_TOP);
