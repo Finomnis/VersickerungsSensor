@@ -37,6 +37,7 @@ namespace SystemStateMachine::States
         changed |= filtered_distance().new_value_available();
         changed |= blink_state().new_value_available();
         changed |= formatted_datetime().new_value_available();
+        changed |= usb_connected().new_value_available();
 
         if (changed)
         {
@@ -54,8 +55,8 @@ namespace SystemStateMachine::States
                 formatted_datetime().get().str,
                 std::lround(filtered_distance().get()),
                 true,
-                true, //TODO
-                true, //TODO
+                false, //TODO
+                usb_connected().get(),
                 blink_state().get());
         }
         else
@@ -63,8 +64,8 @@ namespace SystemStateMachine::States
             Display_128x32.show_mainpage(
                 formatted_datetime().get().str,
                 true,
-                true, //TODO
-                true, //TODO
+                false, //TODO
+                usb_connected().get(),
                 blink_state().get());
         }
     }

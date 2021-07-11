@@ -21,6 +21,7 @@ namespace SystemStateMachine::States
         bool changed = false;
 
         changed |= formatted_datetime().new_value_available();
+        changed |= usb_connected().new_value_available();
 
         if (changed)
         {
@@ -39,8 +40,8 @@ namespace SystemStateMachine::States
             formatted_datetime().get().str,
             "Gespeichert",
             false,
-            true, //TODO
-            true, //TODO
+            false, //TODO
+            usb_connected().get(),
             false,
             true);
     }

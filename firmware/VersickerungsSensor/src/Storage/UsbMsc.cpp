@@ -22,6 +22,7 @@ namespace
 }
 
 UsbMsc_t::UsbMsc_t()
+    : usb_connected_value{false}
 {
 }
 
@@ -44,7 +45,11 @@ void UsbMsc_t::init()
 
 void UsbMsc_t::update()
 {
-    Serial.println(tud_mounted());
+    bool connected = tud_mounted();
+    if (usb_connected_value.get() != connected)
+    {
+        usb_connected_value.update(connected);
+    }
 }
 
 void UsbMsc_t::enable()

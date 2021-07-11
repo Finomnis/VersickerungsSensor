@@ -4,6 +4,7 @@
 
 #include "Mixins/BlinkStateMixin.hpp"
 #include "Mixins/DateTimeMixin.hpp"
+#include "Mixins/UsbConnectedMixin.hpp"
 
 namespace SystemStateMachine::States
 {
@@ -11,7 +12,8 @@ namespace SystemStateMachine::States
         : public SystemState,
           protected Mixins::BlinkStateMixin,
           protected Mixins::FormattedDateTimeMixin,
-          protected Mixins::DateTimeMixin
+          protected Mixins::DateTimeMixin,
+          protected Mixins::UsbConnectedMixin
     {
         static constexpr uint32_t IDLE_TIMEOUT_MS = 10000;
 

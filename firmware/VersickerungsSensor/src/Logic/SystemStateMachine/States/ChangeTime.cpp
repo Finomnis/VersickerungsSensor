@@ -66,6 +66,7 @@ namespace SystemStateMachine::States
         changed |= blink_state().new_value_available();
         changed |= formatted_datetime().new_value_available();
         changed |= datetime().new_value_available();
+        changed |= usb_connected().new_value_available();
 
         if (changed)
         {
@@ -86,8 +87,8 @@ namespace SystemStateMachine::States
                 formatted_datetime().get().str,
                 ChangeTimeState::highlight_start(),
                 ChangeTimeState::highlight_end(),
-                true, //TODO
-                true, //TODO
+                false, //TODO
+                usb_connected().get(),
                 blink_state().get());
         }
         else
@@ -96,8 +97,8 @@ namespace SystemStateMachine::States
                 "Clock Error",
                 0,
                 0,
-                true, //TODO
-                true, //TODO
+                false, //TODO
+                usb_connected().get(),
                 true);
         }
     }
