@@ -7,15 +7,20 @@ void RTC_t::init()
     {
         Serial.println("Warning: Unable to communicate with RTC!");
     }
+
+    update();
 }
 
 void RTC_t::update()
 {
-    DateTime now = rtc.now();
-    if (!time.is_valid() || now.unixtime() != time.get().unixtime())
+    if (rtc_connected)
     {
-        time.update(now);
-        formatting_filter.update(now);
+        DateTime now = rtc.now();
+        if (!time.is_valid() || now.unixtime() != time.get().unixtime())
+        {
+            time.update(now);
+            formatting_filter.update(now);
+        }
     }
 }
 
