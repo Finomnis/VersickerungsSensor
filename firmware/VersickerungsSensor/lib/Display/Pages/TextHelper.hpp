@@ -22,7 +22,7 @@ namespace TextHelper
     void getTextDimensions(Adafruit_SSD1306 &display,
                            const char *text,
                            uint16_t *width,
-                           uint16_t *height);
+                           uint16_t *height = nullptr);
 
     void drawText(Adafruit_SSD1306 &display,
                   const char *text,

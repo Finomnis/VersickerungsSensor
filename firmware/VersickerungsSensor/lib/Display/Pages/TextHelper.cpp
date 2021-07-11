@@ -37,8 +37,17 @@ namespace TextHelper
                            uint16_t *width,
                            uint16_t *height)
     {
-        int16_t start_x, start_y;
-        display.getTextBounds(text, 0, 0, &start_x, &start_y, width, height);
+        if (height == nullptr)
+        {
+            int16_t start_x, start_y;
+            uint16_t dummy_height;
+            display.getTextBounds(text, 0, 0, &start_x, &start_y, width, &dummy_height);
+        }
+        else
+        {
+            int16_t start_x, start_y;
+            display.getTextBounds(text, 0, 0, &start_x, &start_y, width, height);
+        }
     }
 
     void drawText(Adafruit_SSD1306 &display,
