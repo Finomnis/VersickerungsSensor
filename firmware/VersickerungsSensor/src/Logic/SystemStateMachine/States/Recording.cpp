@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 #include "../../../Display/Display_128x32.hpp"
-
+#include "../../../Storage/UsbMsc.hpp"
 #include "../../../Recording/Recording.hpp"
 
 #include "Saved.hpp"
@@ -14,6 +14,11 @@ namespace SystemStateMachine::States
     {
         Serial.println("State: Recording");
 
+        // Disable USB storage while recording.
+        // Computers can't deal with data changing while they
+        // are accessing it.
+        UsbMsc.disable();
+
         reset_blink_state();
         update_display();
 
@@ -23,6 +28,8 @@ namespace SystemStateMachine::States
     void Recording::exit()
     {
         ::Recording.finish();
+
+        UsbMsc.enable();
     }
 
     void Recording::react(PressedButtonA const &e)
