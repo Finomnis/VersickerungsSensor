@@ -54,7 +54,7 @@ namespace SystemStateMachine::States::ChangeTimeStateMachine
             }
         };
 
-        class EditYear
+        class EditDay
             : public ChangeTimeState
         {
             void react(IncreaseValue const &e) override;
@@ -79,7 +79,7 @@ namespace SystemStateMachine::States::ChangeTimeStateMachine
             void react(IncreaseValue const &e) override;
             inline void react(NextField const &e) override
             {
-                transit<EditYear>();
+                transit<EditDay>();
             }
 
             inline int32_t get_highlight_start() const override
@@ -92,7 +92,7 @@ namespace SystemStateMachine::States::ChangeTimeStateMachine
             }
         };
 
-        class EditDay
+        class EditYear
             : public ChangeTimeState
         {
             void react(IncreaseValue const &e) override;
@@ -117,7 +117,7 @@ namespace SystemStateMachine::States::ChangeTimeStateMachine
             void react(IncreaseValue const &e) override;
             inline void react(NextField const &e) override
             {
-                transit<EditDay>();
+                transit<EditYear>();
             }
 
             inline int32_t get_highlight_start() const override
