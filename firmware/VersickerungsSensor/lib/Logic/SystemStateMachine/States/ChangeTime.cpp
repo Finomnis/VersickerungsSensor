@@ -3,13 +3,18 @@
 #include <Arduino.h>
 #include <Display_128x32.hpp>
 
+#include "ChangeTimeStateMachine.hpp"
 #include "Idle.hpp"
 
 namespace SystemStateMachine::States
 {
+    using ChangeTimeStateMachine::ChangeTimeState;
+
     void ChangeTime::entry()
     {
         Serial.println("State: ChangeTime");
+
+        ChangeTimeState::start();
 
         reset_blink_state();
         update_display();
@@ -17,12 +22,24 @@ namespace SystemStateMachine::States
 
     void ChangeTime::react(PressedButtonA const &e)
     {
-        Serial.println("Adjust time");
+        ChangeTimeState::dispatch(ChangeTimeStateMachine::IncreaseValue{});
+        reset_blink_state();
+        update_display();
     };
 
     void ChangeTime::react(PressedButtonC const &e)
     {
-        transit<Idle>();
+        ChangeTimeState::dispatch(ChangeTimeStateMachine::NextField{});
+
+        if (ChangeTimeState::is_in_state<ChangeTimeStateMachine::States::Finished>())
+        {
+            transit<Idle>();
+        }
+        else
+        {
+            reset_blink_state();
+            update_display();
+        }
     };
 
     void ChangeTime::update_state()
@@ -45,8 +62,8 @@ namespace SystemStateMachine::States
         {
             Display_128x32.show_changetimepage(
                 formatted_datetime().get().str,
-                3,
-                5,
+                ChangeTimeState::highlight_start(),
+                ChangeTimeState::highlight_end(),
                 true, //TODO
                 true, //TODO
                 blink_state().get());
