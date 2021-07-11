@@ -6,7 +6,7 @@
 
 struct FormattedTime
 {
-    char str[15] = {0};
+    char str[19] = {0};
 };
 
 class RTCFormattingFilter
