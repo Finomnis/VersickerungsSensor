@@ -6,6 +6,7 @@
 #include <Logic.hpp>
 #include <Display_128x32.hpp>
 #include <RTC.hpp>
+#include <Recording.hpp>
 
 #include "peripherals.hpp"
 
@@ -30,6 +31,9 @@ void setup()
 
     // Initialize clock
     RTC.init();
+
+    // Initialize recording
+    Recording.init();
 
     // Initialize logic
     Logic::init();
