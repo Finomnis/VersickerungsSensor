@@ -28,6 +28,12 @@ public:
                             bool bluetooth,
                             bool usb,
                             bool blink);
+    void show_changetimepage(const char *time,
+                             uint32_t highlight_start,
+                             uint32_t highlight_end,
+                             bool bluetooth,
+                             bool usb,
+                             bool blink);
 
 private:
     Adafruit_SSD1306 display;

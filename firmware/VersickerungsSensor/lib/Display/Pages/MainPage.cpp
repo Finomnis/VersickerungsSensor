@@ -3,8 +3,11 @@
 #include "Header.hpp"
 #include <Fonts/FreeSansOblique12pt7b.h>
 
-constexpr size_t STRINGBUFFER_SIZE = 10;
-char stringBuffer[STRINGBUFFER_SIZE];
+namespace
+{
+    constexpr size_t STRINGBUFFER_SIZE = 10;
+    char stringBuffer[STRINGBUFFER_SIZE];
+}
 
 void show_mainpage(Adafruit_SSD1306 &display,
                    const char *time,

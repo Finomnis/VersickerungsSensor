@@ -3,6 +3,7 @@
 #include <Wire.h>
 
 #include "Pages/MainPage.hpp"
+#include "Pages/ChangeTimePage.hpp"
 
 Display_128x32_t::Display_128x32_t()
     : display{DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire}
@@ -51,6 +52,17 @@ void Display_128x32_t::show_mainpage_text(
 {
     ::show_mainpage_text(display, time, text, recording, bluetooth,
                          usb, blink);
+}
+
+void Display_128x32_t::show_changetimepage(const char *time,
+                                           uint32_t highlight_start,
+                                           uint32_t highlight_end,
+                                           bool bluetooth,
+                                           bool usb,
+                                           bool blink)
+{
+    ::show_changetimepage(display, time, highlight_start, highlight_end,
+                          bluetooth, usb, blink);
 }
 
 Display_128x32_t Display_128x32;
