@@ -48,10 +48,11 @@ void Display_128x32_t::show_mainpage_text(
     bool recording,
     bool bluetooth,
     bool usb,
-    bool blink)
+    bool blink,
+    bool small_text)
 {
     ::show_mainpage_text(display, time, text, recording, bluetooth,
-                         usb, blink);
+                         usb, blink, small_text);
 }
 
 void Display_128x32_t::show_changetimepage(const char *time,

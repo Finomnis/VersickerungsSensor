@@ -1,6 +1,7 @@
 #include "MainPage.hpp"
 
 #include "Header.hpp"
+#include <Fonts/FreeSansOblique9pt7b.h>
 #include <Fonts/FreeSansOblique12pt7b.h>
 
 namespace
@@ -48,13 +49,21 @@ void show_mainpage_text(Adafruit_SSD1306 &display,
                         bool recording,
                         bool bluetooth,
                         bool usb,
-                        bool blink)
+                        bool blink,
+                        bool small_text)
 {
     display.clearDisplay();
 
     draw_header(display, time, recording, bluetooth, usb, blink);
 
-    display.setFont(&FreeSansOblique12pt7b);
+    if (small_text)
+    {
+        display.setFont(&FreeSansOblique9pt7b);
+    }
+    else
+    {
+        display.setFont(&FreeSansOblique12pt7b);
+    }
     TextHelper::drawText(display, text,
                          display.width() / 2, display.height() - 1,
                          TextHelper::H_CENTER,

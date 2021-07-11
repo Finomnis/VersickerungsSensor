@@ -22,4 +22,5 @@ void show_mainpage_text(Adafruit_SSD1306 &display,
                         bool recording,
                         bool bluetooth,
                         bool usb,
-                        bool blink);
+                        bool blink,
+                        bool small_text = false);

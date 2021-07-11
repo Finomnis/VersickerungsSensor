@@ -27,7 +27,8 @@ public:
                             bool recording,
                             bool bluetooth,
                             bool usb,
-                            bool blink);
+                            bool blink,
+                            bool small_text = false);
     void show_changetimepage(const char *time,
                              uint32_t highlight_start,
                              uint32_t highlight_end,
