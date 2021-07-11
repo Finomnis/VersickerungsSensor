@@ -1,14 +1,14 @@
+
+#include "Tof10120/Tof10120.hpp"
+#include "Logic/Logic.hpp"
+#include "Display/Display_128x32.hpp"
+#include "RTC/RTC.hpp"
+#include "Recording/Recording.hpp"
+#include "Peripherals/Peripherals.hpp"
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-
-#include <Tof10120.hpp>
-#include <Logic.hpp>
-#include <Display_128x32.hpp>
-#include <RTC.hpp>
-#include <Recording.hpp>
-
-#include "peripherals.hpp"
 
 #include <cmath>
 
