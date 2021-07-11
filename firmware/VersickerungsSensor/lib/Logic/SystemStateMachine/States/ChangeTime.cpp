@@ -30,7 +30,8 @@ namespace SystemStateMachine::States
         bool changed = false;
 
         changed |= blink_state().new_value_available();
-        changed |= formatted_time().new_value_available();
+        changed |= formatted_datetime().new_value_available();
+        changed |= datetime().new_value_available();
 
         if (changed)
         {
@@ -40,12 +41,25 @@ namespace SystemStateMachine::States
 
     void ChangeTime::update_display()
     {
-        Display_128x32.show_changetimepage(
-            formatted_time().get().str,
-            3,
-            4,
-            true, //TODO
-            true, //TODO
-            blink_state().get());
+        if (datetime().is_valid())
+        {
+            Display_128x32.show_changetimepage(
+                formatted_datetime().get().str,
+                3,
+                5,
+                true, //TODO
+                true, //TODO
+                blink_state().get());
+        }
+        else
+        {
+            Display_128x32.show_changetimepage(
+                "Clock Error",
+                0,
+                0,
+                true, //TODO
+                true, //TODO
+                true);
+        }
     }
 };

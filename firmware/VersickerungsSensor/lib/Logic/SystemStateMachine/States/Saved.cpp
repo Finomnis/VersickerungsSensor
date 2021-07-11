@@ -20,7 +20,7 @@ namespace SystemStateMachine::States
     {
         bool changed = false;
 
-        changed |= formatted_time().new_value_available();
+        changed |= formatted_datetime().new_value_available();
 
         if (changed)
         {
@@ -36,7 +36,7 @@ namespace SystemStateMachine::States
     void Saved::update_display()
     {
         Display_128x32.show_mainpage_text(
-            formatted_time().get().str,
+            formatted_datetime().get().str,
             "Saved",
             false,
             true, //TODO

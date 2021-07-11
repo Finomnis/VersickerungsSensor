@@ -10,7 +10,7 @@ namespace SystemStateMachine::States
 {
     class Saved
         : public SystemState,
-          protected Mixins::DateTimeMixin
+          protected Mixins::FormattedDateTimeMixin
     {
         void entry() override;
         void update_state() override;

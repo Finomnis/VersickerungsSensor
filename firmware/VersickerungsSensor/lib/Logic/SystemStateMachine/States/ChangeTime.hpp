@@ -10,6 +10,7 @@ namespace SystemStateMachine::States
     class ChangeTime
         : public SystemState,
           protected Mixins::BlinkStateMixin,
+          protected Mixins::FormattedDateTimeMixin,
           protected Mixins::DateTimeMixin
     {
         void entry() override;

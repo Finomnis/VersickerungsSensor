@@ -12,7 +12,7 @@ namespace SystemStateMachine::States
         : public SystemState,
           protected Mixins::FilteredDistanceMixin,
           protected Mixins::BlinkStateMixin,
-          protected Mixins::DateTimeMixin
+          protected Mixins::FormattedDateTimeMixin
     {
         void entry() override;
         void exit() override;

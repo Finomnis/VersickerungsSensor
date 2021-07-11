@@ -9,7 +9,7 @@ namespace SystemStateMachine::States
     class Idle
         : public SystemState,
           protected Mixins::FilteredDistanceMixin,
-          protected Mixins::DateTimeMixin
+          protected Mixins::FormattedDateTimeMixin
     {
         void entry() override;
         void react(PressedButtonA const &e) override;

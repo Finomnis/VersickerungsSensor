@@ -29,7 +29,7 @@ namespace SystemStateMachine::States
         bool changed = false;
 
         changed |= filtered_distance().new_value_available();
-        changed |= formatted_time().new_value_available();
+        changed |= formatted_datetime().new_value_available();
 
         if (changed)
         {
@@ -42,7 +42,7 @@ namespace SystemStateMachine::States
         if (filtered_distance().is_valid())
         {
             Display_128x32.show_mainpage(
-                formatted_time().get().str,
+                formatted_datetime().get().str,
                 std::lround(filtered_distance().get()),
                 false,
                 true, //TODO
@@ -52,7 +52,7 @@ namespace SystemStateMachine::States
         else
         {
             Display_128x32.show_mainpage(
-                formatted_time().get().str,
+                formatted_datetime().get().str,
                 false,
                 true, //TODO
                 true, //TODO

@@ -9,9 +9,19 @@ namespace SystemStateMachine::States::Mixins
     {
     protected:
         DateTimeMixin();
-        ValueWatcher<FormattedTime> &formatted_time();
+        ValueWatcher<DateTime> &datetime();
 
     private:
-        ValueWatcher<FormattedTime> formatted_time_value;
+        ValueWatcher<DateTime> datetime_value;
+    };
+
+    class FormattedDateTimeMixin
+    {
+    protected:
+        FormattedDateTimeMixin();
+        ValueWatcher<FormattedTime> &formatted_datetime();
+
+    private:
+        ValueWatcher<FormattedTime> formatted_datetime_value;
     };
 }
