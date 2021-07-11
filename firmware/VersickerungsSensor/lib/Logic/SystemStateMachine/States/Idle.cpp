@@ -29,6 +29,7 @@ namespace SystemStateMachine::States
         bool changed = false;
 
         changed |= filtered_distance().new_value_available();
+        changed |= formatted_time().new_value_available();
 
         if (changed)
         {

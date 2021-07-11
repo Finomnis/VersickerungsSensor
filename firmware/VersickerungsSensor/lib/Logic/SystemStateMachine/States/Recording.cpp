@@ -34,6 +34,7 @@ namespace SystemStateMachine::States
 
         changed |= filtered_distance().new_value_available();
         changed |= blink_state().new_value_available();
+        changed |= formatted_time().new_value_available();
 
         if (changed)
         {

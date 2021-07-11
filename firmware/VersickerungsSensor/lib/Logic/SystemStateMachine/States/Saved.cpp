@@ -20,6 +20,8 @@ namespace SystemStateMachine::States
     {
         bool changed = false;
 
+        changed |= formatted_time().new_value_available();
+
         if (changed)
         {
             update_display();
