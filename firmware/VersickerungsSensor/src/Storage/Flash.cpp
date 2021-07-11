@@ -39,11 +39,14 @@ Flash_t::Flash_t()
 void Flash_t::init()
 {
     flash.begin();
+    // Init file system on the flash
+    fatfs.begin(&flash);
 }
 
 void Flash_t::sync()
 {
     flash.syncBlocks();
+    fatfs.cacheClear();
 }
 
 Flash_t Flash{};
