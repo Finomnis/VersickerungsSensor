@@ -28,7 +28,7 @@ UsbMsc_t::UsbMsc_t()
 void UsbMsc_t::init()
 {
     // Set disk vendor id, product id and revision with string up to 8, 16, 4 characters respectively
-    usb_msc.setID("Adafruit", "External Flash", "1.0");
+    usb_msc.setID("Finomnis", "Distance Logs", "1.0");
 
     // Set callback
     usb_msc.setReadWriteCallback(msc_read_cb, msc_write_cb, msc_flush_cb);
@@ -40,13 +40,21 @@ void UsbMsc_t::init()
     usb_msc.setUnitReady(true);
 
     usb_msc.begin();
-
-    usb_msc.setUnitReady(false);
 }
 
 void UsbMsc_t::update()
 {
     Serial.println(tud_mounted());
+}
+
+void UsbMsc_t::enable()
+{
+    usb_msc.setUnitReady(true);
+}
+
+void UsbMsc_t::disable()
+{
+    usb_msc.setUnitReady(false);
 }
 
 UsbMsc_t UsbMsc{};
