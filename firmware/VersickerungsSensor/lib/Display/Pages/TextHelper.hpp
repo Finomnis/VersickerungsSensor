@@ -17,6 +17,13 @@ namespace TextHelper
         H_RIGHT
     };
 
+    int getLeft(int pos_x, int width, HorizontalAlign align_h);
+    int getTop(int pos_y, int height, VerticalAlign align_v);
+    void getTextDimensions(Adafruit_SSD1306 &display,
+                           const char *text,
+                           uint16_t *width,
+                           uint16_t *height);
+
     void drawText(Adafruit_SSD1306 &display,
                   const char *text,
                   int pos_x, int pos_y,

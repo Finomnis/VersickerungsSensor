@@ -2,6 +2,45 @@
 
 namespace TextHelper
 {
+    int getLeft(int pos_x, int width, HorizontalAlign align_h)
+    {
+        switch (align_h)
+        {
+        case HorizontalAlign::H_LEFT:
+            return pos_x;
+        case HorizontalAlign::H_CENTER:
+            return pos_x - width / 2;
+        case HorizontalAlign::H_RIGHT:
+            return pos_x - width + 1;
+        default:
+            return 0;
+        }
+    }
+
+    int getTop(int pos_y, int height, VerticalAlign align_v)
+    {
+        switch (align_v)
+        {
+        case VerticalAlign::V_TOP:
+            return pos_y;
+        case VerticalAlign::V_CENTER:
+            return pos_y - height / 2;
+        case VerticalAlign::V_BOTTOM:
+            return pos_y - height + 1;
+        default:
+            return 0;
+        }
+    }
+
+    void getTextDimensions(Adafruit_SSD1306 &display,
+                           const char *text,
+                           uint16_t *width,
+                           uint16_t *height)
+    {
+        int16_t start_x, start_y;
+        display.getTextBounds(text, 0, 0, &start_x, &start_y, width, height);
+    }
+
     void drawText(Adafruit_SSD1306 &display,
                   const char *text,
                   int pos_x, int pos_y,
@@ -12,33 +51,8 @@ namespace TextHelper
         uint16_t width, height;
         display.getTextBounds(text, 0, 0, &start_x, &start_y, &width, &height);
 
-        int absolute_top{0};
-        int absolute_left{0};
-
-        switch (align_h)
-        {
-        case HorizontalAlign::H_LEFT:
-            absolute_left = pos_x;
-            break;
-        case HorizontalAlign::H_CENTER:
-            absolute_left = pos_x - width / 2;
-            break;
-        case HorizontalAlign::H_RIGHT:
-            absolute_left = pos_x - width + 1;
-            break;
-        }
-        switch (align_v)
-        {
-        case VerticalAlign::V_TOP:
-            absolute_top = pos_y;
-            break;
-        case VerticalAlign::V_CENTER:
-            absolute_top = pos_y - height / 2;
-            break;
-        case VerticalAlign::V_BOTTOM:
-            absolute_top = pos_y - height + 1;
-            break;
-        }
+        int absolute_top = getTop(pos_y, height, align_v);
+        int absolute_left = getLeft(pos_x, width, align_h);
 
         int cursor_x = absolute_left - start_x;
         int cursor_y = absolute_top - start_y;
