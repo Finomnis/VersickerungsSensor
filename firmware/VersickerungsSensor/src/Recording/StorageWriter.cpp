@@ -58,7 +58,7 @@ void StorageWriter::start(DateTime date_time)
     File dataFile = Flash.get_fatfs().open(file_name, FILE_WRITE);
     if (dataFile)
     {
-        dataFile.println("Zeit;Distanz");
+        dataFile.println("Zeit(s);Distanz(mm)");
     }
     dataFile.close();
     Flash.sync();
