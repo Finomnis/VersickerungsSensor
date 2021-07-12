@@ -8,7 +8,7 @@ public:
     void init();
 
     void start(DateTime start_time);
-    void write_sample(float sample_time, float sample_value);
+    bool write_sample(float sample_time, float sample_value);
     void finish();
 
 private:

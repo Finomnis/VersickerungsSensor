@@ -1,5 +1,7 @@
 #include "StorageWriter.hpp"
 
+#include "../Storage/Flash.hpp"
+
 #include <Arduino.h>
 
 void StorageWriter::init()
@@ -7,17 +9,34 @@ void StorageWriter::init()
     Serial.println("Init storage ...");
 }
 
-void StorageWriter::write_sample(float sample_time, float sample_value)
+namespace
 {
-    Serial.print("Writing to '");
-    Serial.print(folder_name);
-    Serial.print("/");
-    Serial.print(file_name);
-    Serial.print("': ");
-    Serial.print(sample_time);
-    Serial.print(",");
-    Serial.print(sample_value);
-    Serial.println();
+    constexpr uint32_t stringBufferSize = 128;
+    char stringBuffer[stringBufferSize] = {0};
+}
+
+bool StorageWriter::write_sample(float sample_time, float sample_value)
+{
+
+    File dataFile = Flash.get_fatfs().open(file_name, FILE_WRITE);
+    if (!dataFile)
+    {
+        return false;
+    }
+
+    int len = snprintf(stringBuffer, stringBufferSize, "%.1f;%.2f", sample_time, sample_value);
+    for (int i = 0; i < len && i < stringBufferSize; i++)
+    {
+        if (stringBuffer[i] == '.')
+            stringBuffer[i] = ',';
+    }
+    dataFile.println(stringBuffer);
+
+    dataFile.close();
+
+    Flash.sync();
+
+    return true;
 }
 
 void StorageWriter::start(DateTime date_time)
@@ -31,6 +50,18 @@ void StorageWriter::start(DateTime date_time)
              date_time.hour(),
              date_time.minute(),
              date_time.second());
+
+    Flash.get_fatfs().chdir();
+    Flash.get_fatfs().mkdir(folder_name);
+    Flash.get_fatfs().chdir(folder_name);
+
+    File dataFile = Flash.get_fatfs().open(file_name, FILE_WRITE);
+    if (dataFile)
+    {
+        dataFile.println("Zeit;Distanz");
+    }
+    dataFile.close();
+    Flash.sync();
 }
 
 void StorageWriter::finish()
