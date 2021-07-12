@@ -92,7 +92,7 @@ void Recording_t::finish_sample()
     if (sample_count > 0)
     {
         store_sample(
-            (((time_value.get().unixtime() - recording_start) + (sample_start - recording_start)) / 2.0f),
+            sample_start - recording_start,
             sample_sum / float(sample_count));
     }
 }
