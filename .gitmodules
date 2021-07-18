@@ -1,0 +1,3 @@
+[submodule "firmware/VersickerungsSensor/src/utils"]
+	path = firmware/VersickerungsSensor/src/utils
+	url = https://github.com/Finomnis/ArduinoUtilities
