@@ -25,7 +25,7 @@ bool StorageWriter::write_sample(float sample_time, float sample_value)
     }
 
     int len = snprintf(stringBuffer, stringBufferSize, "%.1f;%.2f", sample_time, sample_value);
-    for (int i = 0; i < len && i < stringBufferSize; i++)
+    for (uint32_t i = 0; int(i) < len && i < stringBufferSize; i++)
     {
         if (stringBuffer[i] == '.')
             stringBuffer[i] = ',';
