@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Adafruit_SSD1306.h>
-#include "TextHelper.hpp"
+#include "../../utils/TextHelper/Adafruit_SSD1306.hpp"
 #include "Icons.hpp"
 
 inline void draw_header(Adafruit_SSD1306 &display,
