@@ -7,6 +7,7 @@
 #include "Peripherals/Peripherals.hpp"
 #include "Storage/Flash.hpp"
 #include "Storage/UsbMsc.hpp"
+#include "NeoPixel/NeoPixel.hpp"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -21,6 +22,9 @@ void setup()
     Wire.begin();
 
     Serial.begin(9600);
+
+    NeoPixel.init();
+    NeoPixel.set_color(255, 255, 255);
 
     /* Comment in following two lines to pause until Serial is attached */
     // while (!Serial)
