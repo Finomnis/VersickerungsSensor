@@ -1,5 +1,7 @@
 #include "Flash.hpp"
 
+#include "../RTC/RTC.hpp"
+
 namespace
 {
     // Uncomment to run example with FRAM
@@ -31,6 +33,21 @@ namespace
 #endif
 }
 
+namespace
+{
+    void dateTime(uint16_t *date, uint16_t *time)
+    {
+        // User gets date and time from GPS or real-time clock here
+        DateTime const &t = RTC.get_time_value().get();
+
+        // return date using FAT_DATE macro to format fields
+        *date = FAT_DATE(t.year(), t.month(), t.day());
+
+        // return time using FAT_TIME macro to format fields
+        *time = FAT_TIME(t.hour(), t.minute(), t.second());
+    }
+}
+
 Flash_t::Flash_t()
     : flash{&flashTransport}
 {
@@ -41,6 +58,7 @@ void Flash_t::init()
     flash.begin();
     // Init file system on the flash
     fatfs.begin(&flash);
+    FatFile::dateTimeCallback(dateTime);
 }
 
 void Flash_t::sync()
