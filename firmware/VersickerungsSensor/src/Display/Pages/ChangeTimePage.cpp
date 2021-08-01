@@ -18,11 +18,12 @@ void show_changetimepage(Adafruit_SSD1306 &display,
                          uint32_t highlight_end,
                          bool bluetooth,
                          bool usb,
-                         bool blink)
+                         bool blink,
+                         BatteryFillState battery_state)
 {
     display.clearDisplay();
 
-    draw_header(display, "Zeit/Datum setzen", true, bluetooth, usb, false);
+    draw_header(display, "Zeit/Datum setzen", true, bluetooth, usb, blink, battery_state);
 
     memset(part1, 0, sizeof(part1));
     memset(part2, 0, sizeof(part2));

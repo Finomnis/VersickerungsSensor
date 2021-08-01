@@ -15,9 +15,10 @@ void show_mainpage(Adafruit_SSD1306 &display,
                    bool recording,
                    bool bluetooth,
                    bool usb,
-                   bool blink)
+                   bool blink,
+                   BatteryFillState battery_state)
 {
-    show_mainpage_text(display, time, "-- mm", recording, bluetooth, usb, blink);
+    show_mainpage_text(display, time, "-- mm", recording, bluetooth, usb, blink, battery_state);
 }
 
 void show_mainpage(Adafruit_SSD1306 &display,
@@ -26,7 +27,8 @@ void show_mainpage(Adafruit_SSD1306 &display,
                    bool recording,
                    bool bluetooth,
                    bool usb,
-                   bool blink)
+                   bool blink,
+                   BatteryFillState battery_state)
 {
     if (distance_value > 9999)
     {
@@ -35,11 +37,11 @@ void show_mainpage(Adafruit_SSD1306 &display,
 
     if (0 <= snprintf(stringBuffer, STRINGBUFFER_SIZE, "%d mm", distance_value))
     {
-        show_mainpage_text(display, time, stringBuffer, recording, bluetooth, usb, blink);
+        show_mainpage_text(display, time, stringBuffer, recording, bluetooth, usb, blink, battery_state);
     }
     else
     {
-        show_mainpage_text(display, time, "Error", recording, bluetooth, usb, blink);
+        show_mainpage_text(display, time, "Error", recording, bluetooth, usb, blink, battery_state);
     }
 }
 
@@ -50,11 +52,12 @@ void show_mainpage_text(Adafruit_SSD1306 &display,
                         bool bluetooth,
                         bool usb,
                         bool blink,
+                        BatteryFillState battery_state,
                         bool small_text)
 {
     display.clearDisplay();
 
-    draw_header(display, time, recording, bluetooth, usb, blink);
+    draw_header(display, time, recording, bluetooth, usb, blink, battery_state);
 
     if (small_text)
     {

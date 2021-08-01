@@ -2,6 +2,8 @@
 
 #include <Adafruit_SSD1306.h>
 
+#include "../Battery/Battery.hpp"
+
 class Display_128x32_t
 {
     static constexpr size_t DISPLAY_WIDTH = 128;
@@ -16,25 +18,31 @@ public:
                        bool recording,
                        bool bluetooth,
                        bool usb,
-                       bool blink);
+                       bool blink,
+                       BatteryFillState battery_state);
     void show_mainpage(const char *time,
                        bool recording,
                        bool bluetooth,
                        bool usb,
-                       bool blink);
+                       bool blink,
+                       BatteryFillState battery_state);
     void show_mainpage_text(const char *time,
                             const char *text,
                             bool recording,
                             bool bluetooth,
                             bool usb,
                             bool blink,
+                            BatteryFillState battery_state,
                             bool small_text = false);
     void show_changetimepage(const char *time,
                              uint32_t highlight_start,
                              uint32_t highlight_end,
                              bool bluetooth,
                              bool usb,
-                             bool blink);
+                             bool blink,
+                             BatteryFillState battery_state);
+
+    Adafruit_SSD1306 &get_display() { return display; }
 
 private:
     Adafruit_SSD1306 display;

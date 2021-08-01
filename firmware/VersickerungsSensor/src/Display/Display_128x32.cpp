@@ -24,10 +24,11 @@ void Display_128x32_t::show_mainpage(
     bool recording,
     bool bluetooth,
     bool usb,
-    bool blink)
+    bool blink,
+    BatteryFillState battery_state)
 {
     ::show_mainpage(display, time, recording, bluetooth,
-                    usb, blink);
+                    usb, blink, battery_state);
 }
 
 void Display_128x32_t::show_mainpage(
@@ -36,10 +37,11 @@ void Display_128x32_t::show_mainpage(
     bool recording,
     bool bluetooth,
     bool usb,
-    bool blink)
+    bool blink,
+    BatteryFillState battery_state)
 {
     ::show_mainpage(display, time, distance_value, recording, bluetooth,
-                    usb, blink);
+                    usb, blink, battery_state);
 }
 
 void Display_128x32_t::show_mainpage_text(
@@ -49,10 +51,11 @@ void Display_128x32_t::show_mainpage_text(
     bool bluetooth,
     bool usb,
     bool blink,
+    BatteryFillState battery_state,
     bool small_text)
 {
     ::show_mainpage_text(display, time, text, recording, bluetooth,
-                         usb, blink, small_text);
+                         usb, blink, battery_state, small_text);
 }
 
 void Display_128x32_t::show_changetimepage(const char *time,
@@ -60,10 +63,11 @@ void Display_128x32_t::show_changetimepage(const char *time,
                                            uint32_t highlight_end,
                                            bool bluetooth,
                                            bool usb,
-                                           bool blink)
+                                           bool blink,
+                                           BatteryFillState battery_state)
 {
     ::show_changetimepage(display, time, highlight_start, highlight_end,
-                          bluetooth, usb, blink);
+                          bluetooth, usb, blink, battery_state);
 }
 
 Display_128x32_t Display_128x32;

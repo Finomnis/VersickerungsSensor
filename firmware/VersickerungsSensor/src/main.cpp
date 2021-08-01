@@ -8,6 +8,7 @@
 #include "Storage/Flash.hpp"
 #include "Storage/UsbMsc.hpp"
 #include "NeoPixel/NeoPixel.hpp"
+#include "Battery/Battery.hpp"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -22,18 +23,20 @@ void setup()
     Wire.begin();
 
     Serial.begin(9600);
-
-    // Initialize NeoPixel
-    NeoPixel.init();
-
     /* Comment in following two lines to pause until Serial is attached */
     // while (!Serial)
     //     delay(100);
-
     Serial.println("\nVersickerungs Sensor");
+
+    // Initialize NeoPixel
+    NeoPixel.init();
+    //NeoPixel.set_color(255, 255, 255);
 
     // Initialize display
     Display_128x32.init();
+
+    // Initialize NeoPixel
+    Battery.init();
 
     // Initialize clock
     RTC.init();
@@ -53,6 +56,9 @@ void setup()
 
 void loop()
 {
+    // Update Battery
+    Battery.update();
+
     // Update distance sensor
     TOF10120.update();
 

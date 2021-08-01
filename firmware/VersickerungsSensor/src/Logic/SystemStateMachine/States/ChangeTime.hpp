@@ -5,6 +5,7 @@
 #include "Mixins/BlinkStateMixin.hpp"
 #include "Mixins/DateTimeMixin.hpp"
 #include "Mixins/UsbConnectedMixin.hpp"
+#include "Mixins/BatteryStateMixin.hpp"
 
 namespace SystemStateMachine::States
 {
@@ -13,7 +14,8 @@ namespace SystemStateMachine::States
           protected Mixins::BlinkStateMixin,
           protected Mixins::FormattedDateTimeMixin,
           protected Mixins::DateTimeMixin,
-          protected Mixins::UsbConnectedMixin
+          protected Mixins::UsbConnectedMixin,
+          protected Mixins::BatteryStateMixin
     {
         static constexpr uint32_t IDLE_TIMEOUT_MS = 10000;
 

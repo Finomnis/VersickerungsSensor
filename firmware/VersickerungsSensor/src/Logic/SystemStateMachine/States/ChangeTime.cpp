@@ -67,6 +67,7 @@ namespace SystemStateMachine::States
         changed |= formatted_datetime().new_value_available();
         changed |= datetime().new_value_available();
         changed |= usb_connected().new_value_available();
+        changed |= battery_state().new_value_available();
 
         if (changed)
         {
@@ -89,7 +90,8 @@ namespace SystemStateMachine::States
                 ChangeTimeState::highlight_end(),
                 false, //TODO
                 usb_connected().get(),
-                blink_state().get());
+                blink_state().get(),
+                battery_state().get());
         }
         else
         {
@@ -99,7 +101,8 @@ namespace SystemStateMachine::States
                 0,
                 false, //TODO
                 usb_connected().get(),
-                true);
+                blink_state().get(),
+                battery_state().get());
         }
     }
 };

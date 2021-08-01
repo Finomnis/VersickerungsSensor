@@ -6,6 +6,7 @@
 #include "Mixins/BlinkStateMixin.hpp"
 #include "Mixins/DateTimeMixin.hpp"
 #include "Mixins/UsbConnectedMixin.hpp"
+#include "Mixins/BatteryStateMixin.hpp"
 
 namespace SystemStateMachine::States
 {
@@ -14,7 +15,8 @@ namespace SystemStateMachine::States
           protected Mixins::FilteredDistanceMixin,
           protected Mixins::BlinkStateMixin,
           protected Mixins::FormattedDateTimeMixin,
-          protected Mixins::UsbConnectedMixin
+          protected Mixins::UsbConnectedMixin,
+          protected Mixins::BatteryStateMixin
     {
         void entry() override;
         void exit() override;
