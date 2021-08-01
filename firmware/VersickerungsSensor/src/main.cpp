@@ -23,8 +23,8 @@ void setup()
 
     Serial.begin(9600);
 
+    // Initialize NeoPixel
     NeoPixel.init();
-    NeoPixel.set_color(255, 255, 255);
 
     /* Comment in following two lines to pause until Serial is attached */
     // while (!Serial)

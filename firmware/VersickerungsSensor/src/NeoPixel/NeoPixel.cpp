@@ -8,6 +8,7 @@ NeoPixel_t::NeoPixel_t()
 void NeoPixel_t::init()
 {
     pixel.begin();
+    set_color(0, 0, 0);
 }
 
 void NeoPixel_t::set_color(uint8_t r, uint8_t g, uint8_t b)
