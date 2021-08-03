@@ -1,7 +1,7 @@
 
 #include "Tof10120/Tof10120.hpp"
 #include "Logic/Logic.hpp"
-#include "Display/Display_128x32.hpp"
+#include "Display/Display.hpp"
 #include "RTC/RTC.hpp"
 #include "Recording/Recording.hpp"
 #include "Peripherals/Peripherals.hpp"
@@ -18,6 +18,10 @@
 
 ValueWatcher<float> distance_value{&TOF10120.get_display_filtered_value()};
 
+// TODO remove
+#include "Display/Pages/Elements/BatteryIcon.hpp"
+Pages::Elements::BatteryIcon page;
+
 void setup()
 {
     Wire.begin();
@@ -33,7 +37,7 @@ void setup()
     //NeoPixel.set_color(255, 255, 255);
 
     // Initialize display
-    Display_128x32.init();
+    Display.init();
 
     // Initialize NeoPixel
     Battery.init();
@@ -51,7 +55,9 @@ void setup()
     Recording.init();
 
     // Initialize logic
-    Logic::init();
+    //Logic::init();
+
+    Display.set_page(&page);
 }
 
 void loop()
@@ -69,5 +75,8 @@ void loop()
     UsbMsc.update();
 
     // Update logic and state machines
-    Logic::update();
+    //Logic::update();
+
+    // Update display
+    Display.update();
 }
