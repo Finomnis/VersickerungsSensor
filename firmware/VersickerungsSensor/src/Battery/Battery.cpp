@@ -1,6 +1,5 @@
 #include "Battery.hpp"
 
-#include "../Display/Display_128x32.hpp"
 #include "../utils/TimeHelpers.hpp"
 
 namespace
@@ -9,10 +8,6 @@ namespace
     {
         float amount = (voltage - Battery_t::BATTERY_LEVEL_EMPTY) /
                        (Battery_t::BATTERY_LEVEL_FULL - Battery_t::BATTERY_LEVEL_EMPTY);
-        if (amount < 0)
-        {
-            return 0;
-        }
 
         constexpr int divs = int(BATTERY_FULL) - 1;
 
@@ -73,6 +68,12 @@ void Battery_t::update()
                 battery_voltage_value.update(rounded_voltage);
             }
 
+            if (new_state_float < 1.0 - HYSTERESIS_THRESHOLD)
+            {
+                new_state = BATTERY_CRITICAL;
+                new_state_float = 0.0;
+            }
+
             // Update fill state
             if (!battery_state_value.is_valid())
             {
@@ -81,6 +82,10 @@ void Battery_t::update()
             else
             {
                 float old_state_float = battery_state_value.get();
+                if (old_state_float < 0.5f)
+                {
+                    old_state_float = 0.5f;
+                }
 
                 if (abs(new_state_float - old_state_float) >= (0.5 + HYSTERESIS_THRESHOLD))
                 {
