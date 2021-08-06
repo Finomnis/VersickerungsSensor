@@ -34,6 +34,10 @@ public:
     Value<BatteryFillState> const &get_battery_state_value() { return battery_state_value; }
 
 private:
+    void sample_battery();
+    void evaluate_and_publish_samples();
+
+private:
     Value<float> battery_voltage_value;
     Value<BatteryFillState> battery_state_value;
 
