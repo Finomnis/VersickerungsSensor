@@ -9,13 +9,13 @@ namespace Pages
     class MainPage : public PageElement
     {
     public:
-        MainPage();
+        MainPage(bool recording);
 
     protected:
         bool check_dependencies_changed() override { return false; };
         void render(Adafruit_SSD1306 &display) override{};
 
     private:
-        Elements::Header header{};
+        Elements::Header header;
     };
 }

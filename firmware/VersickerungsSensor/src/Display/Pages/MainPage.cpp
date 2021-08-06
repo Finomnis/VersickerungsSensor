@@ -2,7 +2,8 @@
 
 namespace Pages
 {
-    MainPage::MainPage()
+    MainPage::MainPage(bool recording)
+        : header{recording}
     {
         add_child(header);
     }
