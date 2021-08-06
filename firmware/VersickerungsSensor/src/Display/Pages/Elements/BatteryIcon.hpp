@@ -5,17 +5,14 @@
 #include "Mixins/BatteryStateMixin.hpp"
 #include "Mixins/BlinkStateMixin.hpp"
 
-namespace Pages
+namespace Pages::Elements
 {
-    namespace Elements
+    class BatteryIcon : public PageElement,
+                        private Mixins::BatteryStateMixin,
+                        private Mixins::BlinkStateMixin
     {
-        class BatteryIcon : public PageElement,
-                            private Mixins::BatteryStateMixin,
-                            private Mixins::BlinkStateMixin
-        {
-        protected:
-            bool check_dependencies() override;
-            void render(Adafruit_SSD1306 &display) override;
-        };
-    }
+    protected:
+        bool check_dependencies_changed() override;
+        void render(Adafruit_SSD1306 &display) override;
+    };
 }

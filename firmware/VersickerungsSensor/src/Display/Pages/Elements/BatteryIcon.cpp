@@ -2,41 +2,38 @@
 
 #include "Assets/Icons.hpp"
 
-namespace Pages
+namespace Pages::Elements
 {
-    namespace Elements
+    bool BatteryIcon::check_dependencies_changed()
     {
-        bool BatteryIcon::check_dependencies()
+        bool battery_changed = battery_state().new_value_available();
+
+        bool blink_changed = false;
+        if (battery_state().is_valid() && battery_state().get() == BATTERY_CRITICAL)
         {
-            bool battery_changed = battery_state().new_value_available();
-
-            bool blink_changed = false;
-            if (battery_state().is_valid() && battery_state().get() == BATTERY_CRITICAL)
-            {
-                blink_changed = blink_state().new_value_available();
-            }
-
-            return battery_changed || blink_changed;
+            blink_changed = blink_state().new_value_available();
         }
 
-        void BatteryIcon::render(Adafruit_SSD1306 &display)
-        {
-            if (!battery_state().is_valid())
-            {
-                return;
-            }
+        return battery_changed || blink_changed;
+    }
 
-            if (battery_state().get() == BATTERY_CRITICAL)
+    void BatteryIcon::render(Adafruit_SSD1306 &display)
+    {
+        if (!battery_state().is_valid())
+        {
+            return;
+        }
+
+        if (battery_state().get() == BATTERY_CRITICAL)
+        {
+            if (blink_state().get())
             {
-                if (blink_state().get())
-                {
-                    draw_battery_icon(display, display.width() - 5, 0, 0);
-                }
+                draw_battery_icon(display, display.width() - 5, 0, 0);
             }
-            else
-            {
-                draw_battery_icon(display, display.width() - 5, 0, int(battery_state().get()) - 1);
-            }
+        }
+        else
+        {
+            draw_battery_icon(display, display.width() - 5, 0, int(battery_state().get()) - 1);
         }
     }
 }

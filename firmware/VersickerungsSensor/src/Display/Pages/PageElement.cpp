@@ -4,7 +4,7 @@ namespace Pages
 {
     void PageElement::redraw_if_necessary(Adafruit_SSD1306 &display)
     {
-        if (recursive_check_dependencies())
+        if (recursive_check_dependencies_changed())
         {
             redraw(display);
         }
@@ -17,20 +17,20 @@ namespace Pages
         display.display();
     }
 
-    bool PageElement::recursive_check_dependencies()
+    bool PageElement::recursive_check_dependencies_changed()
     {
-        bool self_invalid = check_dependencies();
+        bool self_invalid = check_dependencies_changed();
         bool siblings_invalid = false;
         bool children_invalid = false;
 
         if (next_sibling != nullptr)
         {
-            siblings_invalid = next_sibling->recursive_check_dependencies();
+            siblings_invalid = next_sibling->recursive_check_dependencies_changed();
         }
 
         if (first_child != nullptr)
         {
-            children_invalid = first_child->recursive_check_dependencies();
+            children_invalid = first_child->recursive_check_dependencies_changed();
         }
 
         return self_invalid || siblings_invalid || children_invalid;
@@ -38,6 +38,8 @@ namespace Pages
 
     void PageElement::recursive_render(Adafruit_SSD1306 &display)
     {
+        render(display);
+
         if (first_child != nullptr)
         {
             first_child->recursive_render(display);
@@ -47,7 +49,11 @@ namespace Pages
         {
             next_sibling->recursive_render(display);
         }
+    }
 
-        render(display);
+    void PageElement::add_child(PageElement &child)
+    {
+        child.next_sibling = first_child;
+        first_child = &child;
     }
 }
