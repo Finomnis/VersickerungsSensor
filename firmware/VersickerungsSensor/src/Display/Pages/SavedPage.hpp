@@ -3,12 +3,10 @@
 #include "PageElement.hpp"
 
 #include "Elements/Header.hpp"
-#include "Elements/Mixins/FilteredDistanceMixin.hpp"
 
 namespace Pages
 {
-    class SavedPage : public PageElement,
-                      private Elements::Mixins::FilteredDistanceMixin
+    class SavedPage : public PageElement
     {
     public:
         SavedPage();
