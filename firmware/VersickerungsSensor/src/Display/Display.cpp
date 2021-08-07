@@ -31,4 +31,9 @@ void Display_t::set_page(Pages::PageElement *new_page)
     }
 }
 
+void Display_t::dim(bool dim)
+{
+    display.dim(dim);
+}
+
 Display_t Display{};

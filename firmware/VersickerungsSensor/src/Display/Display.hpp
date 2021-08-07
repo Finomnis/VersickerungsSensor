@@ -17,6 +17,7 @@ public:
     void init();
     void update();
     void set_page(Pages::PageElement *new_page);
+    void dim(bool dim);
 
 private:
     Adafruit_SSD1306 display;
