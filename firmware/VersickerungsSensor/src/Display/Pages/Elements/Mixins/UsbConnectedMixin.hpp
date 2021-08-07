@@ -2,7 +2,7 @@
 
 #include "../../../../utils/ValueWatcher.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     class UsbConnectedMixin
     {

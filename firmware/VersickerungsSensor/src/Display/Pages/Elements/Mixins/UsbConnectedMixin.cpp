@@ -2,7 +2,7 @@
 
 #include "../../../../Storage/UsbMsc.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     UsbConnectedMixin::UsbConnectedMixin()
         : usb_connected_valuewatcher{&UsbMsc.get_usb_connected_value()}

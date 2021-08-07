@@ -1,76 +1,55 @@
 #include "MainPage.hpp"
 
-#include "Header.hpp"
-#include <Fonts/FreeSansOblique9pt7b.h>
+#include "../../utils/TextHelper/Adafruit_SSD1306.hpp"
+
 #include <Fonts/FreeSansOblique12pt7b.h>
 
-namespace
+namespace Pages
 {
-    constexpr size_t STRINGBUFFER_SIZE = 10;
-    char stringBuffer[STRINGBUFFER_SIZE];
-}
-
-void show_mainpage(Adafruit_SSD1306 &display,
-                   const char *time,
-                   bool recording,
-                   bool bluetooth,
-                   bool usb,
-                   bool blink,
-                   BatteryFillState battery_state)
-{
-    show_mainpage_text(display, time, "-- mm", recording, bluetooth, usb, blink, battery_state);
-}
-
-void show_mainpage(Adafruit_SSD1306 &display,
-                   const char *time,
-                   uint16_t distance_value,
-                   bool recording,
-                   bool bluetooth,
-                   bool usb,
-                   bool blink,
-                   BatteryFillState battery_state)
-{
-    if (distance_value > 9999)
+    MainPage::MainPage(bool recording)
+        : header{recording}
     {
-        distance_value = 9999;
+        add_child(header);
     }
 
-    if (0 <= snprintf(stringBuffer, STRINGBUFFER_SIZE, "%d mm", distance_value))
+    bool MainPage::check_dependencies_changed()
     {
-        show_mainpage_text(display, time, stringBuffer, recording, bluetooth, usb, blink, battery_state);
+        return filtered_distance().new_value_available();
     }
-    else
+
+    void MainPage::render(Adafruit_SSD1306 &display)
     {
-        show_mainpage_text(display, time, "Error", recording, bluetooth, usb, blink, battery_state);
+        const auto draw_text = [&display](const char *txt)
+        {
+            display.setFont(&FreeSansOblique12pt7b);
+            TextHelper::drawText(display, txt,
+                                 display.width() / 2, display.height() - 1,
+                                 TextHelper::H_CENTER,
+                                 TextHelper::V_BOTTOM);
+        };
+
+        if (filtered_distance().is_valid())
+        {
+            char stringBuffer[128];
+            uint16_t distance_value = std::lround(filtered_distance().get());
+
+            if (distance_value > 9999)
+            {
+                distance_value = 9999;
+            }
+
+            if (0 <= snprintf(stringBuffer, sizeof(stringBuffer), "%d mm", distance_value))
+            {
+                draw_text(stringBuffer);
+            }
+            else
+            {
+                draw_text("Error");
+            }
+        }
+        else
+        {
+            draw_text("-- mm");
+        }
     }
-}
-
-void show_mainpage_text(Adafruit_SSD1306 &display,
-                        const char *time,
-                        const char *text,
-                        bool recording,
-                        bool bluetooth,
-                        bool usb,
-                        bool blink,
-                        BatteryFillState battery_state,
-                        bool small_text)
-{
-    display.clearDisplay();
-
-    draw_header(display, time, recording, bluetooth, usb, blink, battery_state);
-
-    if (small_text)
-    {
-        display.setFont(&FreeSansOblique9pt7b);
-    }
-    else
-    {
-        display.setFont(&FreeSansOblique12pt7b);
-    }
-    TextHelper::drawText(display, text,
-                         display.width() / 2, display.height() - 1,
-                         TextHelper::H_CENTER,
-                         TextHelper::V_BOTTOM);
-
-    display.display();
 }

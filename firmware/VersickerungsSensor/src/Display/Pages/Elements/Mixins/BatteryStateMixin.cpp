@@ -1,6 +1,6 @@
 #include "BatteryStateMixin.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     BatteryStateMixin::BatteryStateMixin()
         : battery_voltage_value{&Battery.get_battery_voltage_value()},

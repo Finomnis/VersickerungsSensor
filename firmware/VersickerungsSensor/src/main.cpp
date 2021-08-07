@@ -1,7 +1,7 @@
 
 #include "Tof10120/Tof10120.hpp"
 #include "Logic/Logic.hpp"
-#include "Display/Display_128x32.hpp"
+#include "Display/Display.hpp"
 #include "RTC/RTC.hpp"
 #include "Recording/Recording.hpp"
 #include "Peripherals/Peripherals.hpp"
@@ -33,7 +33,7 @@ void setup()
     //NeoPixel.set_color(255, 255, 255);
 
     // Initialize display
-    Display_128x32.init();
+    Display.init();
 
     // Initialize NeoPixel
     Battery.init();
@@ -70,4 +70,7 @@ void loop()
 
     // Update logic and state machines
     Logic::update();
+
+    // Update display
+    Display.update();
 }

@@ -2,13 +2,15 @@
 
 #include "../../../../utils/ValueWatcher.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     class BlinkStateMixin
     {
     protected:
         BlinkStateMixin();
         ValueWatcher<bool> &blink_state();
+
+    public:
         void reset_blink_state(bool target_state = true);
 
     private:

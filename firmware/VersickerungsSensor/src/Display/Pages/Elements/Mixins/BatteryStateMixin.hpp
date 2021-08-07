@@ -3,7 +3,7 @@
 #include "../../../../utils/ValueWatcher.hpp"
 #include "../../../../Battery/Battery.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     class BatteryStateMixin
     {

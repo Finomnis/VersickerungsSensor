@@ -1,7 +1,6 @@
 #include "ChangeTime.hpp"
 
-#include <Arduino.h>
-#include "../../../Display/Display_128x32.hpp"
+#include "../../../Display/Display.hpp"
 #include "../../../utils/TimeHelpers.hpp"
 
 #include "ChangeTimeStateMachine.hpp"
@@ -17,8 +16,10 @@ namespace SystemStateMachine::States
 
         ChangeTimeState::start();
 
-        reset_blink_state();
-        update_display();
+        page.set_highlight(
+            ChangeTimeState::highlight_start(),
+            ChangeTimeState::highlight_end());
+        Display.set_page(&page);
 
         reset_idle_timeout();
     }
@@ -31,18 +32,16 @@ namespace SystemStateMachine::States
     void ChangeTime::react(LongPressedButtonA const &e)
     {
         ChangeTimeState::dispatch(ChangeTimeStateMachine::IncreaseValue{});
-        reset_blink_state();
-        update_display();
+        page.reset_blink_state();
         reset_idle_timeout();
     }
 
     void ChangeTime::react(PressedButtonA const &e)
     {
         ChangeTimeState::dispatch(ChangeTimeStateMachine::IncreaseValue{});
-        reset_blink_state();
-        update_display();
+        page.reset_blink_state();
         reset_idle_timeout();
-    };
+    }
 
     void ChangeTime::react(PressedButtonC const &e)
     {
@@ -54,55 +53,18 @@ namespace SystemStateMachine::States
             return;
         }
 
-        reset_blink_state(false);
-        update_display();
+        page.set_highlight(
+            ChangeTimeState::highlight_start(),
+            ChangeTimeState::highlight_end());
+
         reset_idle_timeout();
-    };
+    }
 
     void ChangeTime::update_state()
     {
-        bool changed = false;
-
-        changed |= blink_state().new_value_available();
-        changed |= formatted_datetime().new_value_available();
-        changed |= datetime().new_value_available();
-        changed |= usb_connected().new_value_available();
-        changed |= battery_state().new_value_available();
-
-        if (changed)
-        {
-            update_display();
-        }
-
         if (event_is_over(idle_timeout))
         {
             transit<Idle>();
-        }
-    }
-
-    void ChangeTime::update_display()
-    {
-        if (datetime().is_valid())
-        {
-            Display_128x32.show_changetimepage(
-                formatted_datetime().get().str,
-                ChangeTimeState::highlight_start(),
-                ChangeTimeState::highlight_end(),
-                false, //TODO
-                usb_connected().get(),
-                blink_state().get(),
-                battery_state().get());
-        }
-        else
-        {
-            Display_128x32.show_changetimepage(
-                "Clock Error",
-                0,
-                0,
-                false, //TODO
-                usb_connected().get(),
-                blink_state().get(),
-                battery_state().get());
         }
     }
 };

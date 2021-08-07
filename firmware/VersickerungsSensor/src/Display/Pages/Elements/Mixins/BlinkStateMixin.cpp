@@ -1,6 +1,6 @@
 #include "BlinkStateMixin.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     BlinkStateMixin::BlinkStateMixin()
         : blink_state_valuewatcher{&blink_state_value}

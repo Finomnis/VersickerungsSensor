@@ -2,7 +2,7 @@
 
 #include "../../../../Tof10120/Tof10120.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     FormattedDateTimeMixin::FormattedDateTimeMixin()
         : formatted_datetime_value{&RTC.get_formatted_time_value()}

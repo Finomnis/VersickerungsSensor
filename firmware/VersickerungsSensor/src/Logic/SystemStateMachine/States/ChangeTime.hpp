@@ -2,20 +2,12 @@
 
 #include "../SystemState.hpp"
 
-#include "Mixins/BlinkStateMixin.hpp"
-#include "Mixins/DateTimeMixin.hpp"
-#include "Mixins/UsbConnectedMixin.hpp"
-#include "Mixins/BatteryStateMixin.hpp"
+#include "../../../Display/Pages/ChangeTimePage.hpp"
 
 namespace SystemStateMachine::States
 {
     class ChangeTime
-        : public SystemState,
-          protected Mixins::BlinkStateMixin,
-          protected Mixins::FormattedDateTimeMixin,
-          protected Mixins::DateTimeMixin,
-          protected Mixins::UsbConnectedMixin,
-          protected Mixins::BatteryStateMixin
+        : public SystemState
     {
         static constexpr uint32_t IDLE_TIMEOUT_MS = 10000;
 
@@ -26,10 +18,12 @@ namespace SystemStateMachine::States
         void react(PressedButtonC const &e) override;
 
         void update_state() override;
-        void update_display();
 
     private:
         void reset_idle_timeout();
         uint32_t idle_timeout{0};
+
+    private:
+        Pages::ChangeTimePage page{};
     };
 }

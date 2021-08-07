@@ -3,15 +3,13 @@
 #include "PageElement.hpp"
 
 #include "Elements/Header.hpp"
-#include "Elements/Mixins/FilteredDistanceMixin.hpp"
 
 namespace Pages
 {
-    class MainPage : public PageElement,
-                     private Elements::Mixins::FilteredDistanceMixin
+    class SavedPage : public PageElement
     {
     public:
-        MainPage(bool recording);
+        SavedPage();
 
     protected:
         bool check_dependencies_changed() override;

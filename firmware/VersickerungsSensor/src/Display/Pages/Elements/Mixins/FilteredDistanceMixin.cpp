@@ -2,7 +2,7 @@
 
 #include "../../../../Tof10120/Tof10120.hpp"
 
-namespace SystemStateMachine::States::Mixins
+namespace Pages::Elements::Mixins
 {
     FilteredDistanceMixin::FilteredDistanceMixin()
         : filtered_distance_value{&TOF10120.get_display_filtered_value()}
