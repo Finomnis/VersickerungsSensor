@@ -17,6 +17,11 @@ namespace Pages
         display.display();
     }
 
+    void PageElement::execute_activate_handlers(Adafruit_SSD1306 &display)
+    {
+        recursive_on_activate(display);
+    }
+
     bool PageElement::recursive_check_dependencies_changed()
     {
         bool self_invalid = check_dependencies_changed();
@@ -48,6 +53,21 @@ namespace Pages
         if (next_sibling != nullptr)
         {
             next_sibling->recursive_render(display);
+        }
+    }
+
+    void PageElement::recursive_on_activate(Adafruit_SSD1306 &display)
+    {
+        on_activate(display);
+
+        if (first_child != nullptr)
+        {
+            first_child->recursive_on_activate(display);
+        }
+
+        if (next_sibling != nullptr)
+        {
+            next_sibling->recursive_on_activate(display);
         }
     }
 

@@ -15,6 +15,7 @@ namespace Pages::Elements
     protected:
         bool check_dependencies_changed() override;
         void render(Adafruit_SSD1306 &display) override;
+        void on_activate(Adafruit_SSD1306 &display) override;
 
         const bool recording;
     };

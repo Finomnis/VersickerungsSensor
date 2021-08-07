@@ -21,6 +21,11 @@ namespace Pages
         reset_blink_state(false);
     }
 
+    void ChangeTimePage::on_activate(Adafruit_SSD1306 &display)
+    {
+        reset_blink_state(false);
+    }
+
     bool ChangeTimePage::check_dependencies_changed()
     {
         bool blink_state_changed = blink_state().new_value_available();

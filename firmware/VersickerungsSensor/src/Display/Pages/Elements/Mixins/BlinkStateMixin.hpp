@@ -9,6 +9,8 @@ namespace Pages::Elements::Mixins
     protected:
         BlinkStateMixin();
         ValueWatcher<bool> &blink_state();
+
+    public:
         void reset_blink_state(bool target_state = true);
 
     private:

@@ -26,6 +26,7 @@ void Display_t::set_page(Pages::PageElement *new_page)
     page = new_page;
     if (page != nullptr)
     {
+        page->execute_activate_handlers(display);
         page->redraw(display);
     }
 }

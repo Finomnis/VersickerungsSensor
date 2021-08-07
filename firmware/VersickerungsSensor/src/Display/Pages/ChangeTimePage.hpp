@@ -10,7 +10,7 @@ namespace Pages
 {
     class ChangeTimePage : public PageElement,
                            private Elements::Mixins::FormattedDateTimeMixin,
-                           private Elements::Mixins::BlinkStateMixin
+                           public Elements::Mixins::BlinkStateMixin
     {
     public:
         ChangeTimePage();
@@ -19,6 +19,7 @@ namespace Pages
     protected:
         bool check_dependencies_changed() override;
         void render(Adafruit_SSD1306 &display) override;
+        void on_activate(Adafruit_SSD1306 &display) override;
 
     private:
         Elements::TextHeader header;

@@ -35,4 +35,9 @@ namespace Pages::Elements
             draw_pause_icon(display, display.width() - 34, 0);
         }
     }
+
+    void RecordingIcon::on_activate(Adafruit_SSD1306 &display)
+    {
+        reset_blink_state();
+    }
 }
