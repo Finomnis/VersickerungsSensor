@@ -25,3 +25,11 @@ struct LongPressedButtonB : tinyfsm::Event
 struct LongPressedButtonC : tinyfsm::Event
 {
 };
+
+struct EnterBatteryLowPowerstate : tinyfsm::Event
+{
+};
+
+struct LeaveBatteryLowPowerstate : tinyfsm::Event
+{
+};

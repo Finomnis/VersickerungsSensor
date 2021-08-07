@@ -19,6 +19,8 @@ PressedButtonC buttonEventC{};
 LongPressedButtonA buttonEventLongA{};
 LongPressedButtonB buttonEventLongB{};
 LongPressedButtonC buttonEventLongC{};
+EnterBatteryLowPowerstate enterBatteryLowPowerstateEvent{};
+LeaveBatteryLowPowerstate leaveBatteryLowPowerstateEvent{};
 
 void Logic::init()
 {
@@ -62,4 +64,14 @@ void Logic::update()
     {
         SystemState::dispatch(buttonEventLongC);
     }
+}
+
+void Logic::enter_battery_low_powerstate()
+{
+    SystemState::dispatch(enterBatteryLowPowerstateEvent);
+}
+
+void Logic::leave_battery_low_powerstate()
+{
+    SystemState::dispatch(leaveBatteryLowPowerstateEvent);
 }

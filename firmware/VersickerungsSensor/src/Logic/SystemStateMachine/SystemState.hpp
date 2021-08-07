@@ -25,6 +25,8 @@ namespace SystemStateMachine
         virtual void react(LongPressedButtonA const &){};
         virtual void react(LongPressedButtonB const &){};
         virtual void react(LongPressedButtonC const &){};
+        void react(EnterBatteryLowPowerstate const &);
+        virtual void react(LeaveBatteryLowPowerstate const &){};
 
         /* update */
         virtual void update_state(){};

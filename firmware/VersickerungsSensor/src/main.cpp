@@ -9,6 +9,7 @@
 #include "Storage/UsbMsc.hpp"
 #include "NeoPixel/NeoPixel.hpp"
 #include "Battery/Battery.hpp"
+#include "BatteryLowState/BatteryLowState.hpp"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -56,6 +57,12 @@ void loop()
 {
     // Update Battery
     Battery.update();
+
+    // Update Low Battery State
+    if (BatteryLowState.update())
+    {
+        return;
+    }
 
     // Update distance sensor
     TOF10120.update();
