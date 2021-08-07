@@ -18,10 +18,6 @@
 
 ValueWatcher<float> distance_value{&TOF10120.get_display_filtered_value()};
 
-// TODO remove
-#include "Display/Pages/Elements/BatteryIcon.hpp"
-Pages::Elements::BatteryIcon page;
-
 void setup()
 {
     Wire.begin();
@@ -55,9 +51,7 @@ void setup()
     Recording.init();
 
     // Initialize logic
-    //Logic::init();
-
-    Display.set_page(&page);
+    Logic::init();
 }
 
 void loop()
@@ -75,7 +69,7 @@ void loop()
     UsbMsc.update();
 
     // Update logic and state machines
-    //Logic::update();
+    Logic::update();
 
     // Update display
     Display.update();
