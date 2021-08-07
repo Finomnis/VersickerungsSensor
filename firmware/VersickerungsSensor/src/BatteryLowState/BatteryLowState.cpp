@@ -13,10 +13,18 @@ bool BatteryLowState_t::update()
 {
     bool new_battery_low_state = false;
 
-    if (Battery.get_battery_voltage_value().is_valid() &&
-        Battery.get_battery_voltage_value().get() <= BATTERY_SYSTEM_STANDBY_VOLTAGE)
+    if (Battery.get_battery_voltage_value().is_valid())
     {
-        new_battery_low_state = true;
+        if (!battery_low_state &&
+            Battery.get_battery_voltage_value().get() <= BATTERY_SYSTEM_STANDBY_VOLTAGE)
+        {
+            new_battery_low_state = true;
+        }
+        if (battery_low_state &&
+            Battery.get_battery_voltage_value().get() <= BATTERY_SYSTEM_STANDBY_VOLTAGE + Battery.HYSTERESIS_THRESHOLD)
+        {
+            new_battery_low_state = true;
+        }
     }
 
     if (new_battery_low_state != battery_low_state)
