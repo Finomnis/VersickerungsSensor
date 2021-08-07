@@ -16,8 +16,6 @@
 
 #include <cmath>
 
-ValueWatcher<float> distance_value{&TOF10120.get_display_filtered_value()};
-
 void setup()
 {
     Wire.begin();
