@@ -31,7 +31,7 @@ bool StorageWriter::write_sample(float sample_time, float sample_value)
     t_left /= 60;
     int hours = t_left;
 
-    int len = snprintf(stringBuffer, stringBufferSize, "%d:%d:%d;%.2f", hours, minutes, seconds, sample_value);
+    int len = snprintf(stringBuffer, stringBufferSize, "%02d:%02d:%02d;%.2f", hours, minutes, seconds, sample_value);
     for (uint32_t i = 0; int(i) < len && i < stringBufferSize; i++)
     {
         if (stringBuffer[i] == '.')
